@@ -9,11 +9,47 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+stages:
+  - stage: validate
+    jobs:
+    - job: validate
+      continueOnError: false
+      steps:
+      - task: TerraformInstaller@0
+        displayName: 'install Terraform 0.13'
+        inputs:
+          terraformVersion: '0.13'
+
+
+
+      - task: TerraformCLI@0
+        displayName: 'Terraform init'
+        inputs:
+          command: 'init'
+          backendType: 'azurerm'
+          backendServiceArm: 'aeon-iac-poc'
+          backendAzureRmResourceGroupName: 'AeonPoC'
+          backendAzureRmStorageAccountName: 'aeoniactfstate'
+          backendAzureRmContainerName: 'tfstate'
+          backendAzureRmKey: 'tfstate'
+          allowTelemetryCollection: true
+      - task: TerraformCLI@0
+        displayName: 'Terraform Validate'      
+        inputs:
+          command: 'validate'
+          allowTelemetryCollection: true
+
+      - task: TerraformCLI@0
+        displayName: 'Terraform Plan'
+        inputs:
+          command: 'plan'
+          environmentServiceName: 'aeon-iac-poc'
+          allowTelemetryCollection: true
+
+      - task: TerraformCLI@0
+        displayName: 'Terraform Apply'
+        inputs:
+          command: 'apply'
+          environmentServiceName: 'aeon-iac-poc'
+          allowTelemetryCollection: true  
