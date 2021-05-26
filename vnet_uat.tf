@@ -8,7 +8,7 @@ resource "azurerm_resource_group" "rg_uat {
   }
 }
 
-module "vnet_uat" {
+/*module "vnet_uat" {
   source              = "Azure/network/azurerm"
   resource_group_name = azurerm_resource_group.example.name
   address_spaces      = ["10.0.0.0/16", "10.2.0.0/16"]
@@ -19,3 +19,4 @@ module "vnet_uat" {
     environment = "dev"
     costcenter  = "it"
   }
+  */
