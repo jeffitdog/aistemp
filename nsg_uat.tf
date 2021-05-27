@@ -1,4 +1,4 @@
-module "NSG-UAT-DMZ" {
+module "NSG_UAT_DMZ" {
   source                = "./module/terraform-azurerm-network-security-group"
   resource_group_name   = azurerm_resource_group.rg_uat.name
   location              = "southeastasia" #  change to chinaeast2
@@ -122,7 +122,7 @@ module "NSG-UAT-DMZ" {
 
 
 
-module "NSG-UAT-internal" {
+module "NSG_UAT_internal" {
   source                = "./module/terraform-azurerm-network-security-group"
   resource_group_name   = azurerm_resource_group.rg_uat.name
   location              = "southeastasia" #  change to chinaeast2
@@ -315,7 +315,7 @@ module "NSG-UAT-internal" {
       protocol                = "*"
       source_port_range       = "*"
       destination_port_range  = "*"
-      source_address_prefix = "VIRTUALNETWORK"
+      source_address_prefix = "VirtualNetwork"
       destination_address_prefix = "VirtualNetwork"
       access                  = "Deny"
       priority                = 4000
@@ -327,3 +327,7 @@ module "NSG-UAT-internal" {
 }
 
 
+resource "azurerm_subnet_network_security_group_association" "uat_internal" {
+  subnet_id                 = module.vnet_uat.subnet_names[1].id
+  network_security_group_id = module.NSG_UAT_internal.id
+}
