@@ -30,6 +30,42 @@ module "NSG-UAT-DMZ" {
       destination_address_prefix = "10.10.64.122"
       description             = "来自AG的MFS应用服务测试"
     },
+    {
+      name                    = "3-2-2"
+      priority                = 130
+      direction               = "Inbound"
+      access                  = "Allow"
+      protocol                = "udp"
+      source_port_range       = "*"
+      destination_port_range  = "161"
+      source_address_prefixes = ["10.10.19.0/24"]
+      destination_address_prefix = "10.10.64.122"
+      description             = "来自AG的MFS应用服务测试"
+    },
+    {
+      name                    = "3-3-1"
+      priority                = 140
+      direction               = "Inbound"
+      access                  = "Allow"
+      protocol                = "tcp"
+      source_port_range       = "*"
+      destination_port_range  = "22,25,80,443,199"
+      source_address_prefixes = ["10.10.19.0/24"]
+      destination_address_prefix = "10.10.64.122"
+      description             = "来自AG手机进件系统测试应用"
+    },
+    {
+      name                    = "3-3-2"
+      priority                = 150
+      direction               = "Inbound"
+      access                  = "Allow"
+      protocol                = "udp"
+      source_port_range       = "*"
+      destination_port_range  = "161"
+      source_address_prefixes = ["10.10.19.0/24"]
+      destination_address_prefix = "10.10.64.22"
+      description             = "来自AG手机进件系统测试应用"
+    },
   ]
 
   tags = {
