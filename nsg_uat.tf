@@ -66,6 +66,42 @@ module "NSG-UAT-DMZ" {
       destination_address_prefix = "10.10.64.22"
       description             = "来自AG手机进件系统测试应用"
     },
+    {
+      name                    = "3-4-1"
+      priority                = 160
+      direction               = "Inbound"
+      access                  = "Allow"
+      protocol                = "tcp"
+      source_port_range       = "*"
+      destination_port_range  = "22,25,199,8080,8443"
+      source_address_prefixes = ["10.10.65.0/24"]
+      destination_address_prefix = "10.10.64.122"
+      description             = "来自UAT内部MFS应用服务测试"
+    },
+/*    {
+      name                    = "3-4-2"
+      priority                = 170
+      direction               = "Inbound"
+      access                  = "Allow"
+      protocol                = "udp"
+      source_port_range       = "*"
+      destination_port_range  = "161"
+      source_address_prefixes = ["10.10.65.0/24"]
+      destination_address_prefix = "10.10.64.122"
+      description             = "来自UAT内部MFS应用服务测试"
+    },            */
+      {
+      name                    = "3-4-2"
+      description             = "来自UAT内部MFS应用服务测试"
+      protocol                = "udp"
+      source_port_range       = "*"
+      destination_port_range  = "161"
+      source_address_prefixes = ["10.10.65.0/24"]
+      destination_address_prefix = "10.10.64.122"
+      access                  = "Allow"
+      priority                = 170
+      direction               = "Inbound"     
+    },            
   ]
 
   tags = {
