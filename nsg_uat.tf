@@ -4,39 +4,30 @@ module "NSG-UAT-DMZ" {
   location              = "southeastasia" #  change to chinaeast2
   security_group_name   = "NSG-UAT-DMZ"
   source_address_prefix = ["10.0.3.0/24"]
-  predefined_rules = [
-    {
-      name     = "SSH"
-      priority = "500"
-    },
-    {
-      name              = "LDAP"
-      source_port_range = "1024-1026"
-    }
-  ]
-
   custom_rules = [
     {
-      name                   = "myssh"
-      priority               = 201
+      name                   = "3-1-1"
+      priority               = 110
       direction              = "Inbound"
       access                 = "Allow"
       protocol               = "tcp"
       source_port_range      = "*"
       destination_port_range = "22"
-      source_address_prefix  = "10.151.0.0/24"
-      description            = "description-myssh"
+      source_address_prefix  = "10.10.17.200/29"
+      destination_address_prefix = "10.10.64.0/24"
+      description            = "堡垒机"
     },
     {
-      name                    = "myhttp"
-      priority                = 200
+      name                    = "3-2-1"
+      priority                = 120
       direction               = "Inbound"
       access                  = "Allow"
       protocol                = "tcp"
       source_port_range       = "*"
-      destination_port_range  = "8080"
-      source_address_prefixes = ["10.151.0.0/24", "10.151.1.0/24"]
-      description             = "description-http"
+      destination_port_range  = ["22,25,199,8080,8443"]
+      source_address_prefixes = ["10.10.19.0/24"]
+      destination_address_prefix = "10.10.64.122"
+      description             = "来自AG的MFS应用服务测试"
     },
   ]
 
