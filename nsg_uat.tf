@@ -308,7 +308,19 @@ module "NSG-UAT-internal" {
       access                  = "Allow"
       priority                = 310
       direction               = "Inbound"     
-    },                                                                                                                                                                                                                                                                                                                          
+    },
+    {
+      name                    = "DenyVnetInBound"
+      description             = "DenyVnetInBound"
+      protocol                = "*"
+      source_port_range       = "*"
+      destination_port_range  = "*"
+      source_address_prefixes = "VirtualNetwork"
+      destination_address_prefix = "VirtualNetwork"
+      access                  = "Deny"
+      priority                = 4000
+      direction               = "Inbound"     
+    },                                                                                                                                                                                                                                                                                                                              
   ]
 
   depends_on = [azurerm_resource_group.rg_uat]
