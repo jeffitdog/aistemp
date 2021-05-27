@@ -9,6 +9,8 @@ module "vnet_uat" {
     env = "uat"
     #costcenter  = "it"
   }
+
+  depends_on = [azurerm_resource_group.rg_uat]
 }
   
   
