@@ -1,3 +1,4 @@
+/*
 module "asso_dmz" {
   source                        = "./module/terraform-azure-nsg-association"
   network_security_group_name   = var.nsg_name[0]
@@ -5,7 +6,7 @@ module "asso_dmz" {
   virtual_network_name          = var.vnet_name
   resource_group_name           = var.rg_name
 
-  depends_on = [module.NSG_UAT_DMZ.azurerm_network_security_group.nsg.name]
+  depends_on = [module.NSG_UAT_DMZ]
 }
 
 module "asso_int" {
@@ -15,5 +16,6 @@ module "asso_int" {
   virtual_network_name          = var.vnet_name
   resource_group_name           = var.rg_name
 
-  depends_on = [module.NSG_UAT_internal.azurerm_network_security_group.nsg.name]
+  depends_on = [module.NSG_UAT_internal]
 }
+*/
