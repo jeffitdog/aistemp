@@ -78,19 +78,7 @@ module "NSG-UAT-DMZ" {
       destination_address_prefix = "10.10.64.122"
       description             = "来自UAT内部MFS应用服务测试"
     },
-/*    {
-      name                    = "3-4-2"
-      priority                = 170
-      direction               = "Inbound"
-      access                  = "Allow"
-      protocol                = "udp"
-      source_port_range       = "*"
-      destination_port_range  = "161"
-      source_address_prefixes = ["10.10.65.0/24"]
-      destination_address_prefix = "10.10.64.122"
-      description             = "来自UAT内部MFS应用服务测试"
-    },            */
-      {
+    {
       name                    = "3-4-2"
       description             = "来自UAT内部MFS应用服务测试"
       protocol                = "udp"
@@ -101,13 +89,33 @@ module "NSG-UAT-DMZ" {
       access                  = "Allow"
       priority                = 170
       direction               = "Inbound"     
-    },            
+    },
+    {
+      name                    = "3-5-1"
+      description             = "来自UAT内部手机进件测试应用"
+      protocol                = "tcp"
+      source_port_range       = "*"
+      destination_port_range  = "22,25,80,443,199"
+      source_address_prefixes = ["10.10.65.0/24"]
+      destination_address_prefix = "10.10.64.22"
+      access                  = "Allow"
+      priority                = 180
+      direction               = "Inbound"     
+    },
+    {
+      name                    = "3-5-2"
+      description             = "来自UAT内部手机进件测试应用"
+      protocol                = "udp"
+      source_port_range       = "*"
+      destination_port_range  = "161"
+      source_address_prefixes = ["10.10.65.0/24"]
+      destination_address_prefix = "10.10.64.22"
+      access                  = "Allow"
+      priority                = 190
+      direction               = "Inbound"     
+    },                     
   ]
 
-  tags = {
-    environment = "dev"
-    costcenter  = "it"
-  }
 
   depends_on = [azurerm_resource_group.rg_uat]
 }
