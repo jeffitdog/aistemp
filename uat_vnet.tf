@@ -6,7 +6,7 @@ module "vnet_uat" {
   subnet_names        = [var.subnet_name[0], var.subnet_name[1]]
   vnet_name           = var.vnet_name
   tags = {
-    ENV = "Prod"
+    env = "uat"
     #costcenter  = "it"
   }
 }

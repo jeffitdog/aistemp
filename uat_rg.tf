@@ -4,6 +4,5 @@ resource "azurerm_resource_group" "rg_uat" {
   
   tags     = {
     environment = "dev"  #Update the tag
-    costcenter  = "it"
   }
 }
