@@ -326,8 +326,3 @@ module "NSG_UAT_internal" {
   depends_on = [azurerm_resource_group.rg_uat]
 }
 
-
-resource "azurerm_subnet_network_security_group_association" "uat_internal" {
-  subnet_id                 = module.vnet_uat.subnet_names[1].id
-  network_security_group_id = module.NSG_UAT_internal.id
-}
