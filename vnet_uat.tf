@@ -19,4 +19,5 @@ module "vnet_uat" {
     ENV = "Prod"
     #costcenter  = "it"
   }
+}
   
