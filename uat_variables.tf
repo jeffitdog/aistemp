@@ -10,5 +10,10 @@ variable "vnet_name" {
 
 variable "subnet_name" {
   type    = any
-  default = []
+  default = ["SNT-UAT-DMZ-64", "SNT-UAT-internal-65"]
+}
+
+variable "nsg_name" {
+  type    = any
+  default = ["NSG-UAT-DMZ", "NSG-UAT-internal"]
 }
