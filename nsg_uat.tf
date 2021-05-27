@@ -315,7 +315,7 @@ module "NSG-UAT-internal" {
       protocol                = "*"
       source_port_range       = "*"
       destination_port_range  = "*"
-      source_address_prefixes = ["VIRTUALNETWORK"]
+      source_address_prefix = "VIRTUALNETWORK"
       destination_address_prefix = "VirtualNetwork"
       access                  = "Deny"
       priority                = 4000
