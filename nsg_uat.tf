@@ -24,7 +24,8 @@ module "NSG-UAT-DMZ" {
       access                  = "Allow"
       protocol                = "tcp"
       source_port_range       = "*"
-      destination_port_range  = ["22,25,199,8080,8443"]
+      #destination_port_range  = ["22,25,199,8080,8443"]
+      destination_port_range  = "8443"
       source_address_prefixes = ["10.10.19.0/24"]
       destination_address_prefix = "10.10.64.122"
       description             = "来自AG的MFS应用服务测试"
