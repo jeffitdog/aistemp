@@ -17,3 +17,13 @@ variable "nsg_name" {
   type    = any
   default = ["NSG-UAT-DMZ", "NSG-UAT-internal"]
 }
+
+variable "vnet_space" {
+  type    = any
+  default = "10.10.64.0/20"
+}
+
+variable "subnet_space" {
+  type    = any
+  default = ["10.10.64.0/24", "10.10.65.0/24"]
+}
