@@ -116,6 +116,44 @@ module "NSG-UAT-DMZ" {
     },                     
   ]
 
+  depends_on = [azurerm_resource_group.rg_uat]
+}
+
+
+
+
+module "NSG-UAT-internal" {
+  source                = "./module/terraform-azurerm-network-security-group"
+  resource_group_name   = azurerm_resource_group.rg_uat.name
+  location              = "southeastasia" #  change to chinaeast2
+  security_group_name   = "NSG-UAT-internal"
+  source_address_prefix = ["10.0.3.0/24"]
+  custom_rules = [
+    {
+      name                    = "1-1-1"
+      description             = "堡垒机"
+      protocol                = "tcp"
+      source_port_range       = "*"
+      destination_port_range  = "22"
+      source_address_prefixes = ["10.10.17.200/29"]
+      destination_address_prefix = "10.10.65.0/24"
+      access                  = "Allow"
+      priority                = 110
+      direction               = "Inbound"     
+    },
+    {
+      name                    = "1-2-1"
+      description             = "来自DMZ的NMFS应用测试"
+      protocol                = "tcp"
+      source_port_range       = "*"
+      destination_port_range  = "22,25,199,8005,8009,8080,8081,48062"
+      source_address_prefixes = ["10.10.64.0/24"]
+      destination_address_prefix = "10.10.65.11"
+      access                  = "Allow"
+      priority                = 120
+      direction               = "Inbound"     
+    },                     
+  ]
 
   depends_on = [azurerm_resource_group.rg_uat]
 }
