@@ -5,7 +5,7 @@ module "asso_dmz" {
   virtual_network_name          = var.vnet_name
   resource_group_name           = var.rg_name
 
-  depends_on = [module.vnet_uat]
+  depends_on = [module.NSG_UAT_DMZ]
 }
 
 module "asso_int" {
@@ -15,5 +15,5 @@ module "asso_int" {
   virtual_network_name          = var.vnet_name
   resource_group_name           = var.rg_name
 
-  depends_on = [module.vnet_uat]
+  depends_on = [module.NSG_UAT_internal]
 }
