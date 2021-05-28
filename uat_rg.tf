@@ -1,3 +1,4 @@
+/*
 resource "azurerm_resource_group" "rg_uat" {
   name     = var.rg_name
   location = "southeastasia"     #Change the location to chinaeast2
@@ -6,3 +7,6 @@ resource "azurerm_resource_group" "rg_uat" {
     environment = "dev"  #Update the tag
   }
 }
+
+
+*/

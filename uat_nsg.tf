@@ -1,3 +1,14 @@
+#Must create resource group first 
+resource "azurerm_resource_group" "rg_uat" {
+  name     = var.rg_name
+  location = "southeastasia"     #Change the location to chinaeast2
+  
+  tags     = {
+    environment = "dev"  #Update the tag
+  }
+}
+
+#Create NSG Rules
 module "NSG_UAT_DMZ" {
   source                = "./module/terraform-azurerm-network-security-group"
   resource_group_name   = azurerm_resource_group.rg_uat.name
@@ -118,8 +129,6 @@ module "NSG_UAT_DMZ" {
 
   depends_on = [azurerm_resource_group.rg_uat]
 }
-
-
 
 
 module "NSG_UAT_internal" {
@@ -326,7 +335,8 @@ module "NSG_UAT_internal" {
   depends_on = [azurerm_resource_group.rg_uat]
 }
 
-module "asso_dmz" {                       #associate nsg to the subnet
+ #Associate nsg to the subnet
+module "asso_dmz" {                      
   source                        = "./module/terraform-azure-nsg-association"
   network_security_group_name   = var.nsg_name[0]
   subnet_name                   = var.subnet_name[0]
@@ -336,7 +346,7 @@ module "asso_dmz" {                       #associate nsg to the subnet
   depends_on = [azurerm_resource_group.rg_uat]
 }
 
-module "asso_int" {                         #associate nsg to the subnet
+module "asso_int" {                        
   source                        = "./module/terraform-azure-nsg-association"
   network_security_group_name   = var.nsg_name[1]
   subnet_name                   = var.subnet_name[1]
