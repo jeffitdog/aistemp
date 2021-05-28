@@ -12,5 +12,28 @@ module "vnet_uat" {
 
   depends_on = [azurerm_resource_group.rg_uat]
 }
-  
-  
+
+/*  
+resource "azurerm_network_interface" "vm" {
+  #count                         = var.nb_instances
+  count                         = 1
+  #name                          = "${var.vm_hostname[count.index]}-nic"
+  name                          = "test-nic"
+  resource_group_name           = var.rg_name
+  location                      = southeastasia     #change to chinaeast2
+  enable_accelerated_networking = var.enable_accelerated_networking
+
+  ip_configuration {
+    #name                          = "${var.vm_hostname}-ip-${count.index}"
+    name                          = "testprivate-ip"  
+    subnet_id                     = var.vnet_subnet_id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = length(azurerm_public_ip.vm.*.id) > 0 ? element(concat(azurerm_public_ip.vm.*.id, list("")), count.index) : ""
+  }
+
+  tags = var.tags
+}
+
+
+
+*/

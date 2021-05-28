@@ -333,7 +333,7 @@ module "asso_dmz" {                       #associate nsg to the subnet
   virtual_network_name          = var.vnet_name
   resource_group_name           = var.rg_name
 
-  depends_on = [module.NSG_UAT_DMZ]
+  depends_on = [azurerm_resource_group.rg_uat]
 }
 
 module "asso_int" {                         #associate nsg to the subnet
@@ -343,5 +343,5 @@ module "asso_int" {                         #associate nsg to the subnet
   virtual_network_name          = var.vnet_name
   resource_group_name           = var.rg_name
 
-  depends_on = [module.NSG_UAT_internal]
+  depends_on = [azurerm_resource_group.rg_uat]
 }
