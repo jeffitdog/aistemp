@@ -337,15 +337,7 @@ module "NSG_UAT_internal" {
 
  #Associate nsg to the subnet
 
-resource "azurerm_subnet_network_security_group_association" "asso_dmz {
-  subnet_id                 = module.vnet_uat.vnet_subnets[0]
-  network_security_group_id = module.NSG_UAT_DMZ
-}
 
-
-
-
-/*
 module "asso_dmz" {                      
   source                        = "./module/terraform-azure-nsg-association"
   network_security_group_name   = var.nsg_name[0]
@@ -367,4 +359,3 @@ module "asso_int" {
 }
 
 
-*/
