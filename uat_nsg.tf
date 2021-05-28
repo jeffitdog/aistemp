@@ -338,6 +338,12 @@ module "NSG_UAT_internal" {
 
  #Associate nsg to the subnet
 
+resource "azurerm_subnet_network_security_group_association" "this" {
+  subnet_id                 = module.vnet_uat.vnet_subnets[0]
+  network_security_group_id = module.NSG_UAT_DMZ.network_security_group_id
+}
+
+/*
 
 module "asso_dmz" {                      
   
@@ -362,4 +368,6 @@ module "asso_int" {
   
 }
 
-  
+
+
+*/
