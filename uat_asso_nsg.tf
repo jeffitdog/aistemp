@@ -17,6 +17,6 @@ module "asso_int" {
   resource_group_name           = var.rg_name
 
   depends_on = [module.NSG_UAT_internal]
-}
+}   
 
 */
