@@ -8,6 +8,7 @@ resource "azurerm_resource_group" "rg_uat" {
   }
 }
 
+
 #Create NSG Rules
 module "NSG_UAT_DMZ" {
   source                = "./module/terraform-azurerm-network-security-group"
@@ -336,7 +337,7 @@ module "NSG_UAT_internal" {
 }
 
  #Associate nsg to the subnet
-
+/*
 
 module "asso_dmz" {                      
   
@@ -360,4 +361,4 @@ module "asso_int" {
   
 }
 
-
+*/

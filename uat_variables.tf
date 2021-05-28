@@ -27,3 +27,8 @@ variable "subnet_space" {
   type    = any
   default = ["10.10.64.0/24", "10.10.65.0/24"]
 }
+
+variable "enable_accelerated_networking" {
+  type    = any
+  default = "true"
+}
