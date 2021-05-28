@@ -339,23 +339,24 @@ module "NSG_UAT_internal" {
 
 
 module "asso_dmz" {                      
-  depends_on = [azurerm_resource_group.rg_uat,module.NSG_UAT_DMZ]
+  
   source                        = "./module/terraform-azure-nsg-association"
   network_security_group_name   = var.nsg_name[0]
   subnet_name                   = var.subnet_name[0]
   virtual_network_name          = var.vnet_name
   resource_group_name           = var.rg_name
 
+  depends_on = [azurerm_resource_group.rg_uat]
 }
 
 module "asso_int" {                        
-  depends_on = [azurerm_resource_group.rg_uat,module.NSG_UAT_internal]
+  
   source                        = "./module/terraform-azure-nsg-association"
   network_security_group_name   = var.nsg_name[1]
   subnet_name                   = var.subnet_name[1]
   virtual_network_name          = var.vnet_name
   resource_group_name           = var.rg_name
-
+  depends_on = [azurerm_resource_group.rg_uat]
   
 }
 
