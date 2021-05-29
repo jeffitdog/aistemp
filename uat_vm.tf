@@ -24,7 +24,7 @@ module "linuxservers" {
   vm_os_sku       = "7_9"
   vm_os_version   = "latest"
   vm_size         = "Standard_F4s_v2"
-  data_sa_type    = "Standard_LRS"
+  storage_account_type    = "Standard_LRS"
   #source_address_prefixes   = ["13.67.111.51"]
 
 
