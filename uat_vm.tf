@@ -9,7 +9,7 @@ resource "azurerm_resource_group" "rg_uat" {
 module "linuxservers" {
   source = "./module/terraform-azurerm-compute"
   #source              = "Azure/compute/azurerm"
-  resource_group_name = var.rg_name
+  resource_group_name = resource.azurerm_resource_group.rg_uat.name
   #vm_os_simple        = "UbuntuServer" 
   public_ip_dns       = ["publicdns","publicdns2"] // change to a unique name per datacenter region
   vnet_subnet_id  = module.vnet_uat.vnet_subnets[0]
