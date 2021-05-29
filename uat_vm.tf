@@ -18,4 +18,7 @@ module "linuxservers" {
   vm_size         = "Standard_F4s_v2"
   data_sa_type    = "Standard_LRS"
   #source_address_prefixes   = ["13.67.111.51"]
+
+
+  depends_on = [azurerm_resource_group.rg_uat]
 }
