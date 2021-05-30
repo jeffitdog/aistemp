@@ -66,11 +66,17 @@ variable "storage_account_type" {
   type        = string
   default     = "Premium_LRS"
 }
-
+/*
 variable "vm_size" {
   description = "Specifies the size of the virtual machine."
   type        = string
   default     = "Standard_D2s_v3"
+}
+*/
+variable "vm_size" {
+  description = "Specifies the size of the virtual machine."
+  type        = list(string)
+  default     = []
 }
 
 variable "nb_instances" {
