@@ -35,7 +35,7 @@ resource "azurerm_virtual_machine" "vm-linux" {
   #name                          = "${var.vm_hostname}-vmLinux-${count.index}"
   resource_group_name           = data.azurerm_resource_group.vm.name
   location                      = coalesce(var.location, data.azurerm_resource_group.vm.location)
-  availability_set_id           = azurerm_availability_set.vm.id
+  #availability_set_id           = azurerm_availability_set.vm.id
   #vm_size                       = var.vm_size
   vm_size                       = var.vm_size["${count.index}"]
   network_interface_ids         = [element(azurerm_network_interface.vm.*.id, count.index)]
@@ -151,7 +151,7 @@ resource "azurerm_virtual_machine" "vm-windows" {
   name                          = "${var.vm_hostname}-vmWindows-${count.index}"
   resource_group_name           = data.azurerm_resource_group.vm.name
   location                      = coalesce(var.location, data.azurerm_resource_group.vm.location)
-  availability_set_id           = azurerm_availability_set.vm.id
+  #availability_set_id           = azurerm_availability_set.vm.id
   #vm_size                       = var.vm_size
   vm_size                       = var.vm_size["${count.index}"]
   network_interface_ids         = [element(azurerm_network_interface.vm.*.id, count.index)]
@@ -241,7 +241,7 @@ resource "azurerm_virtual_machine" "vm-windows" {
 }
 
 
-
+/*
 resource "azurerm_availability_set" "vm" {
  name                         = "${var.vm_host}-avset"
  # name                         = "${var.vm_hostname}-avset"
@@ -252,7 +252,7 @@ resource "azurerm_availability_set" "vm" {
   managed                      = true
   tags                         = var.tags
 }
-
+*/
 resource "azurerm_public_ip" "vm" {
   count               = var.nb_public_ip
   #name                = "${var.vm_hostname}-pip-${count.index}"
