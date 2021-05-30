@@ -6,6 +6,9 @@ resource "azurerm_resource_group" "rg_uat" {
     environment = "dev"  #Update the tag
   }
 }
+
+#Restore back later
+/*
 module "centos_f4_v2_internal" {
   source = "./module/terraform-azurerm-compute"
   #source              = "Azure/compute/azurerm"
@@ -33,3 +36,4 @@ module "centos_f4_v2_internal" {
   depends_on = [azurerm_resource_group.rg_uat]
 }
 
+*/

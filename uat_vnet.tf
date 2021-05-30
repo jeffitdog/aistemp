@@ -1,7 +1,7 @@
 module "vnet_uat" {
   source              = "./module/terraform-azurerm-network"
   resource_group_name = azurerm_resource_group.rg_uat.name
-  address_spaces      = [var.vnet_space[0]]
+  address_spaces      = [var.vnet_space]
   subnet_prefixes     = [var.subnet_space[0], var.subnet_space[1]]
   subnet_names        = [var.subnet_name[0], var.subnet_name[1]]
   vnet_name           = var.vnet_name
@@ -12,14 +12,14 @@ module "vnet_uat" {
 
   depends_on = [azurerm_resource_group.rg_uat]
 }
-/*
+
 module "vnet_transit" {
   source              = "./module/terraform-azurerm-network"
   resource_group_name = azurerm_resource_group.rg_uat.name
-  address_spaces      = [var.vnet_space[1]]
-  subnet_prefixes     = [var.subnet_space[0], var.subnet_space[1]]
-  subnet_names        = [var.subnet_name[0], var.subnet_name[1]]
-  vnet_name           = var.vnet_name
+  address_spaces      = [var.transit_vnet_space]
+  subnet_prefixes     = [var.transit_subnet_space[0], var.transit_subnet_space[1]]
+  subnet_names        = [var.transit_subnet_name[0], var.transit_subnet_name[1]]
+  vnet_name           = var.transit_vnet_name
   tags = {
     env = "uat"
     #costcenter  = "it"
@@ -28,7 +28,7 @@ module "vnet_transit" {
   depends_on = [azurerm_resource_group.rg_uat]
 }
 
-*/
+
 /*
 resource "azurerm_virtual_network_peering" "uat_transit" {
   name                      = "uattotransit"
