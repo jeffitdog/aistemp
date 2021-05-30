@@ -12,7 +12,7 @@ module "centos_f4_v2_internal" {
   resource_group_name = azurerm_resource_group.rg_uat.name
   #vm_os_simple        = "UbuntuServer" 
   public_ip_dns       = ["publicdns","publicdns2"] // change to a unique name per datacenter region
-  vnet_subnet_id  = module.vnet_uat.vnet_subnets[0]
+  vnet_subnet_id  = module.vnet_uat.vnet_subnets[1]
   #remote_port     = "22"
  #ssh_key         = "./id_rsa.pub"
  #vm_hostname = ["VM-C-UAT-internal-NMFS.AP01-11","VM-C-UAT-internal-NMFS.AP02-101","VM-C-UAT-internal-NMFS.AP04-104", "VM-C-UAT-internal-MobileAMF-22"]
