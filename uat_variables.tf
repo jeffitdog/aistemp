@@ -20,7 +20,7 @@ variable "nsg_name" {
 
 variable "vnet_space" {
   type    = any
-  default = "10.10.64.0/20"
+  default = ["10.10.64.0/20"]
 }
 
 variable "subnet_space" {
