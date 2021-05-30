@@ -246,3 +246,10 @@ variable "os_profile_secrets" {
   type        = list(map(string))
   default     = []
 }
+
+
+variable "private_ip_address" {
+  description = "List of private ip address to be used."
+  type        = list(string)
+  default     = []
+}
