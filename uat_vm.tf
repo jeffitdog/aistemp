@@ -25,7 +25,7 @@ module "linuxservers" {
   vm_os_version   = "latest"
   vm_size         = "Standard_F4s_v2"
   storage_account_type    = "Standard_LRS"
-  private_ip_address      =['10.10.64.13']
+  private_ip_address      =["10.10.64.13"]
   #source_address_prefixes   = ["13.67.111.51"]
 
 
