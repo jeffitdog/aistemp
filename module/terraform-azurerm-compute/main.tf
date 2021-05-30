@@ -310,7 +310,8 @@ resource "azurerm_network_interface" "vm" {
     #name                          = "${var.vm_hostname}-ip-${count.index}"
     name                          = "${var.vm_hostname[count.index]}-ip"
     subnet_id                     = var.vnet_subnet_id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "Static"
+    private_ip_address            = var.private_ip_address
     public_ip_address_id          = length(azurerm_public_ip.vm.*.id) > 0 ? element(concat(azurerm_public_ip.vm.*.id, list("")), count.index) : ""
   }
 
