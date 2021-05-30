@@ -37,12 +37,12 @@ output "public_ip_dns_name" {
   description = "fqdn to connect to the first vm provisioned."
   value       = azurerm_public_ip.vm.*.fqdn
 }
-
+/*
 output "availability_set_id" {
   description = "id of the availability set where the vms are provisioned."
   value       = azurerm_availability_set.vm.id
 }
-
+*/
 output "vm_zones" {
   description = "map with key `Virtual Machine Id`, value `list of the Availability Zone` which the Virtual Machine should be allocated in."
   value       = zipmap(concat(azurerm_virtual_machine.vm-windows.*.id, azurerm_virtual_machine.vm-linux.*.id), concat(azurerm_virtual_machine.vm-windows.*.zones, azurerm_virtual_machine.vm-linux.*.zones))
