@@ -20,7 +20,7 @@ module "mgt_admin" {
  #vm_hostname = ["VM-W-Management-Admin-File-10","VM-W-Management-Admin-AD01-45","VM-W-Management-Admin-AD02-46", "VM-W-Management-Admin-AD03-47"]
   vm_hostname = ["VMWMgtAdmFile","VMWMgtAdmAD01"]
   #vm_hostname = "my-vm"
-  nb_instances    = 2
+  nb_instances    = 1
   nb_public_ip    = 0
   vm_os_offer     = "WindowsServer"
   vm_os_publisher = "MicrosoftWindowsServer"
