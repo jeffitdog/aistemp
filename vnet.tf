@@ -17,9 +17,24 @@ module "vnet_transit" {
   source              = "./module/terraform-azurerm-network"
   resource_group_name = azurerm_resource_group.rg_uat.name
   address_spaces      = var.transit_vnet_space
-  subnet_prefixes     = [var.transit_subnet_space[0], var.transit_subnet_space[1]]
-  subnet_names        = [var.transit_subnet_name[0], var.transit_subnet_name[1]]
+  subnet_prefixes     = [var.transit_subnet_space[0], var.transit_subnet_space[1],var.transit_subnet_space[2]]
+  subnet_names        = [var.transit_subnet_name[0], var.transit_subnet_name[1],var.transit_subnet_name[1]]
   vnet_name           = var.transit_vnet_name
+  tags = {
+    env = "uat"
+    #costcenter  = "it"
+  }
+
+  depends_on = [azurerm_resource_group.rg_uat]
+}
+
+module "vnet_mgt" {
+  source              = "./module/terraform-azurerm-network"
+  resource_group_name = azurerm_resource_group.rg_uat.name
+  address_spaces      = var.mgt_vnet_space
+  subnet_prefixes     = [var.mgt_subnet_space[0], var.transit_subnet_space[1]]
+  subnet_names        = [var.mgt_subnet_name[0], var.transit_subnet_name[1]]
+  vnet_name           = var.mgt_vnet_name
   tags = {
     env = "uat"
     #costcenter  = "it"
@@ -30,19 +45,6 @@ module "vnet_transit" {
 
 
 
-resource "azurerm_virtual_network_peering" "uat_transit" {
-  name                      = "uattotransit"
-  resource_group_name       = azurerm_resource_group.rg_uat.name
-  virtual_network_name      = module.vnet_uat.vnet_name
-  remote_virtual_network_id = module.vnet_transit.vnet_id
-}
-
-resource "azurerm_virtual_network_peering" "transit_uat" {
-  name                      = "transittouat"
-  resource_group_name       = azurerm_resource_group.rg_uat.name
-  virtual_network_name      = module.vnet_transit.vnet_name
-  remote_virtual_network_id = module.vnet_uat.vnet_id
-}
 
 /*  
 resource "azurerm_network_interface" "vm" {

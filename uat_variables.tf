@@ -15,7 +15,7 @@ variable "subnet_name" {
 
 variable "nsg_name" {
   type    = any
-  default = ["NSG-UAT-DMZ", "NSG-UAT-internal"]
+  default = ["NSG-SNT-UAT-DMZ-64", "NSG-SNT-UAT-internal-65"]
 }
 
 variable "vnet_space" {

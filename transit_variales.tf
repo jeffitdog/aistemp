@@ -10,7 +10,7 @@ variable "transit_subnet_name" {
 
 variable "transit_nsg_name" {
   type    = any
-  default = ["NSG-Tranist-Proxy", "NSG-Transit-Bastion"]
+  default = ["NSG-SNT-Transit-Proxy-16", "NSG-SNT-Transit-Bastion-17"]
 }
 
 variable "transit_vnet_space" {
