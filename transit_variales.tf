@@ -1,3 +1,9 @@
+variable "transit_rg_name" {
+  type    = any
+  default = "RG-Transit-10"
+}
+
+
 variable "transit_vnet_name" {
   type    = any
   default = "VNT-Transit-10"

@@ -15,7 +15,7 @@ module "vnet_uat" {
 
 module "vnet_transit" {
   source              = "./module/terraform-azurerm-network"
-  resource_group_name = azurerm_resource_group.rg_uat.name
+  resource_group_name = azurerm_resource_group.rg_transit.name
   address_spaces      = var.transit_vnet_space
   subnet_prefixes     = [var.transit_subnet_space[0], var.transit_subnet_space[1]]
   subnet_names        = [var.transit_subnet_name[0], var.transit_subnet_name[1]]
@@ -30,7 +30,7 @@ module "vnet_transit" {
 
 module "vnet_mgt" {
   source              = "./module/terraform-azurerm-network"
-  resource_group_name = azurerm_resource_group.rg_uat.name
+  resource_group_name = azurerm_resource_group.rg_mgt.name
   address_spaces      = var.mgt_vnet_space
   subnet_prefixes     = [var.mgt_subnet_space[0], var.mgt_subnet_space[1], var.mgt_subnet_space[2]]
   subnet_names        = [var.mgt_subnet_name[0], var.mgt_subnet_name[1], var.mgt_subnet_name[2]]
