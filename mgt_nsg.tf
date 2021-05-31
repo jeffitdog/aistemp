@@ -5,7 +5,7 @@ module "NSG_MGT_Security" {
   security_group_name   = var.mgt_nsg_name[0]
   source_address_prefix = ["10.10.48.0/24"]
   custom_rules = [
-    /*  
+    /
     {
       name                   = "15-1-1"
       priority               = 110
@@ -18,7 +18,7 @@ module "NSG_MGT_Security" {
       destination_address_prefix = "10.10.48.0/24"
       description            = "堡垒机"
     },
-    */
+
    /*
     {
       name                    = "15-2-1"
@@ -147,6 +147,7 @@ module "NSG_MGT_Admin" {
       direction               = "Inbound"     
     },
     */
+    /*
     {
       name                    = "2-5-1"
       description             = "文件服务器"
@@ -159,6 +160,7 @@ module "NSG_MGT_Admin" {
       priority                = 160
       direction               = "Inbound"     
     },
+    */
     /*
     {
       name                    = "2-6-1"
