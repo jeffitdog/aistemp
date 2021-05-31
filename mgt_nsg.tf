@@ -5,7 +5,7 @@ module "NSG_MGT_Security" {
   security_group_name   = var.mgt_nsg_name[0]
   source_address_prefix = ["10.10.48.0/24"]
   custom_rules = [
-    /
+    
     {
       name                   = "15-1-1"
       priority               = 110
