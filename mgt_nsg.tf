@@ -5,6 +5,7 @@ module "NSG_MGT_Security" {
   security_group_name   = var.mgt_nsg_name[0]
   source_address_prefix = ["10.10.48.0/24"]
   custom_rules = [
+    /*  
     {
       name                   = "15-1-1"
       priority               = 110
@@ -13,11 +14,11 @@ module "NSG_MGT_Security" {
       protocol               = "tcp"
       source_port_range      = "*"
       destination_port_range = "3389"
-      #source_address_prefixes  = ["10.10.17.201","10.10.17.202","10.10.17.203","10.10.17.204","10.10.17.205","10.10.17.206","10.10.17.207","10.10.17.208"]
-      source_address_prefixes  = ["10.10.17.201","10.10.17.202"]
+      source_address_prefixes  = ["10.10.17.201","10.10.17.202","10.10.17.203","10.10.17.204","10.10.17.205","10.10.17.206","10.10.17.207","10.10.17.208"]
       destination_address_prefix = "10.10.48.0/24"
       description            = "堡垒机"
     },
+    */
    /*
     {
       name                    = "15-2-1"
