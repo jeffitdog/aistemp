@@ -1,4 +1,3 @@
-/*
 resource "azurerm_virtual_network_peering" "uat_transit" {
   name                      = "UAT-To-Transit"
   resource_group_name       = azurerm_resource_group.rg_uat.name
@@ -44,4 +43,3 @@ resource "azurerm_virtual_network_peering" "mgt_transit" {
 }
 
 
-*/
