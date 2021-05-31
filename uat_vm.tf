@@ -18,7 +18,7 @@ module "centos_f4_v2_internal" {
   vnet_subnet_id  = module.vnet_uat.vnet_subnets[1]
   #remote_port     = "22"
  #ssh_key         = "./id_rsa.pub"
- #vm_hostname = ["VM-C-UAT-internal-NMFS.AP01-11","VM-C-UAT-internal-NMFS.AP02-101","VM-C-UAT-internal-NMFS.AP04-104", "VM-C-UAT-internal-MobileAMF-22"]
+ #vm_hostname = ["VM-C-UAT-internal-NMFS.AP01-11","VM-C-UAT-internal-NMFS.AP02-101","VM-C-UAT-internal-NMFS.BAT01-103", "VM-C-UAT-internal-NMFS.AP04-104"]
   vm_hostname = ["VM-C-UAT-internal-NMFS.AP01-11","VM-C-UAT-internal-NMFS.AP02-101"]
   #vm_hostname = "my-vm"
   nb_instances    = 2
