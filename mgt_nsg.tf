@@ -13,7 +13,7 @@ module "NSG_MGT_Security" {
       protocol               = "tcp"
       source_port_range      = "*"
       destination_port_range = "3389"
-      source_address_prefix  = "10.10.17.201,10.10.17.202,10.10.17.203,10.10.17.204,10.10.17.205,10.10.17.206,10.10.17.207,10.10.17.208"
+      source_address_prefix  = ["10.10.17.201,10.10.17.202,10.10.17.203,10.10.17.204,10.10.17.205,10.10.17.206,10.10.17.207,10.10.17.208"]
       destination_address_prefix = "10.10.48.0/24"
       description            = "堡垒机"
     },
@@ -151,7 +151,7 @@ module "NSG_MGT_Admin" {
       protocol                = "*"
       source_port_range       = "*"
       destination_port_range  = "135,139,445,3389,10000"
-      source_address_prefixes = []
+      source_address_prefixes = ["*"]
       destination_address_prefix = "10.10.49.10"
       access                  = "Allow" 
       priority                = 160
