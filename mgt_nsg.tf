@@ -147,20 +147,20 @@ module "NSG_MGT_Admin" {
       direction               = "Inbound"     
     },
     */
-    /*
+    
     {
       name                    = "2-5-1"
       description             = "文件服务器"
       protocol                = "*"
       source_port_range       = "*"
       destination_port_range  = "135,139,445,3389,10000"
-      source_address_prefix   = ["*"]
+      source_address_prefix   = "*"
       destination_address_prefix = "10.10.49.10"
       access                  = "Allow" 
       priority                = 160
       direction               = "Inbound"     
     },
-    */
+    
     /*
     {
       name                    = "2-6-1"
