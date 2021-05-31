@@ -1,22 +1,3 @@
-resource "azurerm_resource_group" "rg_transit" {
-  name     = var.transit_rg_name
-  location = "southeastasia"     #Change the location to chinaeast2
-  
-  tags     = {
-    environment = "dev"  #Update the tag
-  }
-}
-
-resource "azurerm_resource_group" "rg_mgt" {
-  name     = var.mgt_rg_name
-  location = "southeastasia"     #Change the location to chinaeast2
-  
-  tags     = {
-    environment = "dev"  #Update the tag
-  }
-}
-
-
 module "vnet_uat" {
   source              = "./module/terraform-azurerm-network"
   resource_group_name = azurerm_resource_group.rg_uat.name
