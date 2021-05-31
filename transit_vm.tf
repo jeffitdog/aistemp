@@ -1,4 +1,4 @@
-resource "azurerm_resource_group" "rg_mgt" {
+resource "azurerm_resource_group" "rg_transit" {
   name     = var.transit_rg_name
   location = "southeastasia"     #Change the location to chinaeast2
   
