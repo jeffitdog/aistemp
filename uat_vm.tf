@@ -27,7 +27,7 @@ module "centos_f4_v2_internal" {
   vm_os_publisher = "OpenLogic"
   vm_os_sku       = "7_9"
   vm_os_version   = "latest"
-  vm_size         = ["Standard_F4s_v2","Standard_F2s_v2"]
+  vm_size         = ["Standard_F4s_v2","Standard_F4s_v2","Standard_D3_v2","Standard_F4s_v2","Standard_F4s_v2"]
   storage_account_type    = "Standard_LRS"
   private_ip_address      = ["10.10.65.11","10.10.65.101","10.10.65.104","10.10.65.111"]
   #source_address_prefixes   = ["13.67.111.51"]
