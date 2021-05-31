@@ -12,6 +12,10 @@ module "vnet_uat" {
 
   depends_on = [azurerm_resource_group.rg_uat]
 }
+
+
+
+
 /*
 module "vnet_transit" {
   source              = "./module/terraform-azurerm-network"
@@ -42,4 +46,20 @@ module "vnet_mgt" {
   }
 
   depends_on = [azurerm_resource_group.rg_mgt]
+}
+
+
+module "vnet_transit" {
+  source              = "./module/terraform-azurerm-network"
+  resource_group_name = azurerm_resource_group.rg_transit.name
+  address_spaces      = var.transit_vnet_space
+  subnet_prefixes     = [var.transit_subnet_space[0], var.transit_subnet_space[1]]
+  subnet_names        = [var.transit_subnet_name[0], var.transit_subnet_name[1]]
+  vnet_name           = var.transit_vnet_name
+  tags = {
+    env = "transit"
+    #costcenter  = "it"
+  }
+
+  depends_on = [azurerm_resource_group.rg_transit]
 }
