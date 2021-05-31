@@ -25,7 +25,7 @@ module "vnet_transit" {
     #costcenter  = "it"
   }
 
-  depends_on = [azurerm_resource_group.rg_uat]
+  depends_on = [azurerm_resource_group.rg_transit]
 }
 
 module "vnet_mgt" {
@@ -40,7 +40,7 @@ module "vnet_mgt" {
     #costcenter  = "it"
   }
 
-  depends_on = [azurerm_resource_group.rg_uat]
+  depends_on = [azurerm_resource_group.rg_mgt]
 }
 
 

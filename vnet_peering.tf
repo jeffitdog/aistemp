@@ -26,3 +26,18 @@ resource "azurerm_virtual_network_peering" "mgt_uat" {
   virtual_network_name      = module.vnet_mgt.vnet_name
   remote_virtual_network_id = module.vnet_uat.vnet_id
 }
+
+
+resource "azurerm_virtual_network_peering" "transit_mgt" {
+  name                      = "Transit-To-Management"
+  resource_group_name       = azurerm_resource_group.rg_transit.name
+  virtual_network_name      = module.vnet_transit.vnet_name
+  remote_virtual_network_id = module.vnet_mgt.vnet_id
+}
+
+resource "azurerm_virtual_network_peering" "mgt_transit" {
+  name                      = "Management-To-Transit"
+  resource_group_name       = azurerm_resource_group.rg_mgt.name
+  virtual_network_name      = module.vnet_mgt.vnet_name
+  remote_virtual_network_id = module.vnet_transit.vnet_id
+}
