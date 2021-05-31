@@ -18,7 +18,7 @@ module "mgt_admin" {
   #remote_port     = "22"
  #ssh_key         = "./id_rsa.pub"
  #vm_hostname = ["VM-W-Management-Admin-File-10","VM-W-Management-Admin-AD01-45","VM-W-Management-Admin-AD02-46", "VM-W-Management-Admin-AD03-47"]
-  vm_hostname = ["VM-W-Management-Admin-File-10","VM-W-Management-Admin-AD01-45"]
+  vm_hostname = ["VM-W-Mgt-Admin-File-10","VM-W-Mgt-Admin-AD01-45"]
   #vm_hostname = "my-vm"
   nb_instances    = 2
   nb_public_ip    = 0
