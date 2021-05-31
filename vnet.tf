@@ -1,3 +1,13 @@
+resource "azurerm_resource_group" "rg_transit" {
+  name     = var.transit_rg_name
+  location = "southeastasia"     #Change the location to chinaeast2
+  
+  tags     = {
+    environment = "dev"  #Update the tag
+  }
+}
+
+
 module "vnet_uat" {
   source              = "./module/terraform-azurerm-network"
   resource_group_name = azurerm_resource_group.rg_uat.name
@@ -21,7 +31,7 @@ module "vnet_transit" {
   subnet_names        = [var.transit_subnet_name[0], var.transit_subnet_name[1]]
   vnet_name           = var.transit_vnet_name
   tags = {
-    env = "uat"
+    env = "transit"
     #costcenter  = "it"
   }
 
@@ -36,7 +46,7 @@ module "vnet_mgt" {
   subnet_names        = [var.mgt_subnet_name[0], var.mgt_subnet_name[1], var.mgt_subnet_name[2]]
   vnet_name           = var.mgt_vnet_name
   tags = {
-    env = "uat"
+    env = "mgt"
     #costcenter  = "it"
   }
 
