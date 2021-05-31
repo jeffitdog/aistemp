@@ -148,7 +148,8 @@ resource "azurerm_virtual_machine" "vm-linux" {
 
 resource "azurerm_virtual_machine" "vm-windows" {
   count                         = (var.is_windows_image || contains(list(var.vm_os_simple, var.vm_os_offer), "WindowsServer")) ? var.nb_instances : 0
-  name                          = "${var.vm_hostname}-vmWindows-${count.index}"
+  #name                          = "${var.vm_hostname}-vmWindows-${count.index}"
+  name = var.vm_hostname["${count.index}"]
   resource_group_name           = data.azurerm_resource_group.vm.name
   location                      = coalesce(var.location, data.azurerm_resource_group.vm.location)
   #availability_set_id           = azurerm_availability_set.vm.id
@@ -182,7 +183,8 @@ resource "azurerm_virtual_machine" "vm-windows" {
   }
 
   storage_os_disk {
-    name              = "${var.vm_hostname}-osdisk-${count.index}"
+    #name              = "${var.vm_hostname}-osdisk-${count.index}"
+    name = "osdisk-${var.vm_hostname[count.index]}"
     create_option     = "FromImage"
     caching           = "ReadWrite"
     managed_disk_type = var.storage_account_type
@@ -191,7 +193,8 @@ resource "azurerm_virtual_machine" "vm-windows" {
   dynamic "storage_data_disk" {
     for_each = range(var.nb_data_disk)
     content {
-      name              = "${var.vm_hostname}-datadisk-${count.index}-${storage_data_disk.value}"
+      #name              = "${var.vm_hostname}-datadisk-${count.index}-${storage_data_disk.value}"
+      name              = "${var.vm_hostname[count.index]}-datadisk-${storage_data_disk.value}"
       create_option     = "Empty"
       lun               = storage_data_disk.value
       disk_size_gb      = var.data_disk_size_gb
@@ -202,7 +205,8 @@ resource "azurerm_virtual_machine" "vm-windows" {
   dynamic "storage_data_disk" {
     for_each = var.extra_disks
     content {
-      name              = "${var.vm_hostname}-extradisk-${count.index}-${storage_data_disk.value.name}"
+      #name              = "${var.vm_hostname}-extradisk-${count.index}-${storage_data_disk.value.name}"
+      name              = "${var.vm_hostname[count.index]}-extradisk-${storage_data_disk.value}"
       create_option     = "Empty"
       lun               = storage_data_disk.key + var.nb_data_disk
       disk_size_gb      = storage_data_disk.value.size
