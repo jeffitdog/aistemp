@@ -203,20 +203,50 @@ module "NSG_MGT_Admin" {
                                                                                                                                                                                                                                                                                                                      
   ]
 
-  depends_on = [azurerm_resource_group.rg_uat]
+  depends_on = [azurerm_resource_group.rg_mgt]
 }
 
+
+
+module "NSG_MGT_Migrate" {
+  source                = "./module/terraform-azurerm-network-security-group"
+  resource_group_name   = azurerm_resource_group.rg_mgt.name
+  location              = "southeastasia" #  change to chinaeast2
+  security_group_name   = var.mgt_nsg_name[2]
+  source_address_prefix = ["10.10.50.0/24"] 
+  custom_rules = [
+    {
+      name                    = "4-1-1"
+      description             = "堡垒机"
+      protocol                = "tcp"
+      source_port_range       = "*"
+      destination_port_range  = "22"
+      source_address_prefixes  = ["10.10.17.201","10.10.17.202","10.10.17.203","10.10.17.204","10.10.17.205","10.10.17.206","10.10.17.207","10.10.17.208"]
+      destination_address_prefix = "10.10.50.0/24"
+      access                  = "Allow"
+      priority                = 110
+      direction               = "Inbound"     
+    },
+                                                                                                                                                                                                                                                                                                                        
+  ]
+
+  depends_on = [azurerm_resource_group.rg_mgt]
+}
 
  #Associate nsg to the subnet
-/*
-resource "azurerm_subnet_network_security_group_association" "asso_dmz" {
-  subnet_id                 = module.vnet_uat.vnet_subnets[0]
-  network_security_group_id = module.NSG_UAT_DMZ.network_security_group_id
+
+resource "azurerm_subnet_network_security_group_association" "asso_mgt_security" {
+  subnet_id                 = module.vnet_mgt.vnet_subnets[0]
+  network_security_group_id = module.NSG_MGT_Security.network_security_group_id
 }
 
 
-resource "azurerm_subnet_network_security_group_association" "asso_int" {
-  subnet_id                 = module.vnet_uat.vnet_subnets[1]
-  network_security_group_id = module.NSG_UAT_internal.network_security_group_id
+resource "azurerm_subnet_network_security_group_association" "asso_mgt_admin" {
+  subnet_id                 = module.vnet_mgt.vnet_subnets[1]
+  network_security_group_id = module.NSG_MGT_Admin.network_security_group_id
 }
-*/
+
+resource "azurerm_subnet_network_security_group_association" "asso_mgt_migrate" {
+  subnet_id                 = module.vnet_mgt.vnet_subnets[2]
+  network_security_group_id = module.NSG_MGT_Migrate.network_security_group_id
+}
