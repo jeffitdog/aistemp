@@ -1,3 +1,9 @@
+variable "mgt_rg_name" {
+  type    = any
+  default = "RG-MGT-10"
+}
+
+
 variable "mgt_vnet_name" {
   type    = any
   default = "VNT-Management-10"
