@@ -8,7 +8,7 @@ resource "azurerm_resource_group" "rg_mgt" {
 }
 #Restore back later
 
-module "centos_f4_v2_internal" {
+module "mgt_admin" {
   source = "./module/terraform-azurerm-compute"
   #source              = "Azure/compute/azurerm"
   resource_group_name = azurerm_resource_group.rg_mgt.name
