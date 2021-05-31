@@ -7,7 +7,7 @@ resource "azurerm_resource_group" "rg_mgt" {
   }
 }
 #Restore back later
-
+/*
 module "mgt_admin" {
   source = "./module/terraform-azurerm-compute"
   #source              = "Azure/compute/azurerm"
@@ -35,3 +35,4 @@ module "mgt_admin" {
   depends_on = [azurerm_resource_group.rg_mgt]
 }
 
+*/
