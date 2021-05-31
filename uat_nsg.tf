@@ -1,5 +1,3 @@
-#Must create resource group first 
-
 #Create NSG Rules
 module "NSG_UAT_DMZ" {
   source                = "./module/terraform-azurerm-network-security-group"
