@@ -8,7 +8,7 @@ resource "azurerm_resource_group" "rg_transit" {
 }
 
 #Restore back later
-
+/*
 module "transit_bastion" {
   source = "./module/terraform-azurerm-compute"
   #source              = "Azure/compute/azurerm"
@@ -36,3 +36,4 @@ module "transit_bastion" {
   depends_on = [azurerm_resource_group.rg_uat]
 }
 
+*/
