@@ -162,7 +162,7 @@ module "NSG_MGT_Admin" {
       direction               = "Inbound"     
     },
     
-    /*
+    
     {
       name                    = "2-6-1"
       description             = "ADFS"
@@ -181,14 +181,14 @@ module "NSG_MGT_Admin" {
       description             = "趋势服务器"
       protocol                = "tcp"
       source_port_range       = "*"
-      destination_port_range  = "??????"
+      destination_port_range  = "*"    # To be confirmed later
       source_address_prefixes = ["10.10.48.233"]
       destination_address_prefix = "10.10.49.0/24"
       access                  = "Allow"
       priority                = 180
       direction               = "Inbound"    
     },
-    */
+    
     {
       name                    = "2-8-1"
       description             = "Ansible"
