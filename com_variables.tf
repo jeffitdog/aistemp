@@ -3,7 +3,7 @@ variable "ais_office_ip_address" {
   default = ["192.168.91.0/24","192.168.104.0/24","192.168.107.0/24","192.168.108.0/24","192.168.109.0/24","192.168.110.0/24","172.30.0.0/21","192.168.123.0/24"]  
 }
 
-variable "ams_office_ip_address" {
+variable "amf_office_ip_address" {
   type    = list(string)
   default = ["172.29.1.0/24","172.29.10.0/24","172.30.30.0/24"]  
 }
