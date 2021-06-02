@@ -17,8 +17,8 @@ module "mgt_admin" {
   vnet_subnet_id  = module.vnet_mgt.vnet_subnets[1]
   #remote_port     = "22"
  #ssh_key         = "./id_rsa.pub"
- #vm_hostname = ["VM-W-Management-Admin-File-10","VM-W-Management-Admin-AD01-45","VM-W-Management-Admin-AD02-46", "VM-W-Management-Admin-AD03-47"]
-  vm_hostname = ["VMWMgtAdmFile","VMWMgtAdmAD01"]
+  vm_hostname = ["W-M-Ad-File-10","W-M-Ad-AD01-45","W-M-Ad-AD02-46", "W-M-Ad-AD03-47"]
+  #vm_hostname = ["VMWMgtAdmFile","VMWMgtAdmAD01"]  
   #vm_hostname = "my-vm"
   nb_instances    = 1
   nb_public_ip    = 0

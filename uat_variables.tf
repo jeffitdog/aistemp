@@ -32,3 +32,4 @@ variable "enable_accelerated_networking" {
   type    = any
   default = "true"
 }
+

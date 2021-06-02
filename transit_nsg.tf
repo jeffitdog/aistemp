@@ -41,7 +41,7 @@ module "NSG_Transit_Proxy" {
       protocol                = "tcp"
       source_port_range       = "*"
       destination_port_range  = "22"
-      source_address_prefixes = ["10.10.17.201"]                #In design doc, it is a range 201 - 208, can we say that the ip address for bastion server is 10.10.17.201?
+      source_address_prefixes = ["10.10.17.201"]                
       destination_address_prefix = "10.10.16.0/24"
       description             = "堡垒机"
     },
@@ -72,20 +72,20 @@ module "NSG_Transit_Bastion" {
   security_group_name   = var.mgt_nsg_name[1]
   source_address_prefix = ["10.10.17.0/24"]
   custom_rules = [
-      /*
+    
     {
       name                    = "17-1-1"
       description             = "堡垒机入口"
       protocol                = "tcp"
       source_port_range       = "*"
       destination_port_range  = "443"
-      source_address_prefixes = ["???"]               # What is the ip address range of AIS office?
-      destination_address_prefix = "10.10.17.201"     #In design doc, it is a range 201 - 208, can we say that the ip address for bastion server is 10.10.17.201?
+      source_address_prefixes = ["172.29.1.0/24","172.29.10.0/24","172.30.30.0/24","192.168.91.0/24","192.168.104.0/24","192.168.107.0/24","192.168.108.0/24","192.168.109.0/24","192.168.110.0/24","172.30.0.0/21","192.168.123.0/24"]             #IP address range of AIS office
+      destination_address_prefix = "10.10.17.201"       
       access                  = "Allow"
       priority                = 110
       direction               = "Inbound"     
     },
-    */
+    
     {
       name                    = "17-2-1"
       description             = "Ansible"

@@ -19,7 +19,7 @@ module "NSG_MGT_Security" {
       description            = "堡垒机"
     },
 
-   /*
+   
     {
       name                    = "15-2-1"
       priority                = 120
@@ -29,7 +29,8 @@ module "NSG_MGT_Security" {
       source_port_range       = "*"
       #destination_port_range  = ["22,25,199,8080,8443"]
       destination_port_range  = "80,8080,443"
-      source_address_prefixes = ["????"]
+      #source_address_prefixes = ["172.29.1.0/24","172.29.10.0/24","172.30.30.0/24","192.168.91.0/24","192.168.104.0/24","192.168.107.0/24","192.168.108.0/24","192.168.109.0/24","192.168.110.0/24","172.30.0.0/21","192.168.123.0/24"]             #IP address range of AIS office AND Windows IP
+      source_address_prefixes = concat(var.ais_office_ip_address,var.windows_ip_address)
       destination_address_prefix = "10.10.48.233"
       description             = "杀毒软件服务器预留"
     },
@@ -42,7 +43,7 @@ module "NSG_MGT_Security" {
       protocol                = "tcp"
       source_port_range       = "*"
       destination_port_range  = "135,139,445,3389"
-      source_address_prefixes = ["????"]
+      source_address_prefixes = var.ais_office_ip_address             #IP address range of AIS office
       destination_address_prefix = "10.10.48.2"
       description             = "访问IPGUARD"
     },
@@ -54,11 +55,11 @@ module "NSG_MGT_Security" {
       protocol                = "tcp"
       source_port_range       = "*"
       destination_port_range  = "80,443,2196,2195"
-      source_address_prefixes = ["10.10.19.0/24"]
-      destination_address_prefix = "????"
+      source_address_prefixes = ["172.29.1.0/24","172.29.10.0/24","172.30.30.0/24","192.168.91.0/24","192.168.104.0/24","192.168.107.0/24","192.168.108.0/24","192.168.109.0/24","192.168.110.0/24","172.30.0.0/21","192.168.123.0/24"]             #IP address range of AIS office
+      destination_address_prefix = "10.10.48.1"
       description             = "访问AIRWATCH"
     },
-    */
+    
     {
       name                    = "15-5-1"
       priority                = 150
@@ -121,15 +122,15 @@ module "NSG_MGT_Admin" {
       priority                = 130
       direction               = "Inbound"     
     },
-    /*
+    
     {
       name                    = "2-4-1"
       description             = "AD相关服务"
       protocol                = "tcp"
       source_port_range       = "*"
       destination_port_range  = "49152-49158,53,80,88,135,55577,139,445,464,593,636,3268,3269,3389,5985,9389,10000,32388,33875,55054,47001,49198,49199,49230,49232,51417"
-      source_address_prefixes = ["1?????"]
-      destination_address_prefix = "10.10.65.101"
+      source_address_prefixes = concat(var.amf_office_ip_address,var.ais_office_ip_address,var.windows_ip_address)
+      destination_address_prefix = var.windows_ad_ip_address
       access                  = "Allow"
       priority                = 140
       direction               = "Inbound"     
@@ -140,13 +141,13 @@ module "NSG_MGT_Admin" {
       protocol                = "udp"
       source_port_range       = "*"
       destination_port_range  = "53,123,137,138,161,389,464,500,3389,4500,5355"
-      source_address_prefixes = ["1?????"]
-      destination_address_prefix = "????"
+      source_address_prefixes = concat(var.amf_office_ip_address,var.ais_office_ip_address,var.windows_ip_address)
+      destination_address_prefix = var.windows_ad_ip_address
       access                  = "Allow"
       priority                = 150
       direction               = "Inbound"     
     },
-    */
+    
     
     {
       name                    = "2-5-1"
@@ -154,7 +155,7 @@ module "NSG_MGT_Admin" {
       protocol                = "*"
       source_port_range       = "*"
       destination_port_range  = "135,139,445,3389,10000"
-      source_address_prefix   = "*"
+      source_address_prefixes = concat(var.amf_office_ip_address,var.ais_office_ip_address,var.windows_ip_address)
       destination_address_prefix = "10.10.49.10"
       access                  = "Allow" 
       priority                = 160
@@ -168,7 +169,7 @@ module "NSG_MGT_Admin" {
       protocol                = "tcp"
       source_port_range       = "*"
       destination_port_range  = "80,135,139,443,445,808"
-      source_address_prefixes = ["????"]
+      source_address_prefixes = concat(var.amf_office_ip_address,var.ais_office_ip_address,var.windows_ip_address)
       destination_address_prefix = ["10.10.49.51","10.10.49.52"]
       access                  = "Allow"
       priority                = 170
@@ -200,6 +201,30 @@ module "NSG_MGT_Admin" {
       priority                = 190
       direction               = "Inbound"     
     },
+    {
+      name                    = "2-9-1"
+      description             = "Oline认证"
+      protocol                = "tcp"
+      source_port_range       = "*"
+      destination_port_range  = "443,80"
+      source_address_prefix   = "*"
+      destination_address_prefix = ["10.10.49.51","10.10.49.52"]
+      access                  = "Allow"
+      priority                = 190
+      direction               = "Inbound"     
+    },
+      {
+      name                    = "2-10-1"
+      description             = "监视业务"
+      protocol                = "udp"
+      source_port_range       = "*"
+      destination_port_range  = "161"
+      source_address_prefixes = ["10.10.48.14"]
+      destination_address_prefix = "10.10.49.0/24"
+      access                  = "Allow"
+      priority                = 190
+      direction               = "Inbound"     
+    },        
                                                                                                                                                                                                                                                                                                                      
   ]
 
