@@ -5,7 +5,7 @@ module "NSG_Transit_Proxy" {
   security_group_name   = var.transit_nsg_name[0]
   source_address_prefix = ["10.10.16.0/24"]
   custom_rules = [
-    /*
+    
     {
       name                   = "16-1-1"
       priority               = 110
@@ -13,8 +13,8 @@ module "NSG_Transit_Proxy" {
       access                 = "Allow"
       protocol               = "tcp"
       source_port_range      = "*"
-      destination_port_range = "22,111,139,199,445,631,638,2020,8080,8888,32783,32789,32821,55702"   #Add port 65535?
-      source_address_prefixes  = ["?????"]         # What is the ip address range of <IP address range of the subnet>
+      destination_port_range = "22,111,139,199,445,631,638,2020,8080,8888,32783,32789,32821,55702"   #Add port 1208025? this is over 65535
+      source_address_prefix = "VirtualNetwork"      
       destination_address_prefix = "10.10.16.0/24"
       description            = "上网接入"
     },
@@ -28,11 +28,11 @@ module "NSG_Transit_Proxy" {
       source_port_range       = "*"
       #destination_port_range  = ["22,25,199,8080,8443"]
       destination_port_range  = "123,161"
-      source_address_prefixes = ["????"]          # What is the ip address range of <IP address range of the subnet>
+      source_address_prefix = "VirtualNetwork"         
       destination_address_prefix = "10.10.16.0/24"
       description             = "上网接入"
     },
-    */
+    
     {
       name                    = "16-2-1"
       priority                = 130

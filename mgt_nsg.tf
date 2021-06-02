@@ -170,7 +170,7 @@ module "NSG_MGT_Admin" {
       source_port_range       = "*"
       destination_port_range  = "80,135,139,443,445,808"
       source_address_prefixes = concat(var.amf_office_ip_address,var.ais_office_ip_address,var.windows_ip_address)
-      destination_address_prefix = ["10.10.49.51","10.10.49.52"]
+      destination_address_prefixes = ["10.10.49.51","10.10.49.52"]
       access                  = "Allow"
       priority                = 170
       direction               = "Inbound"     
