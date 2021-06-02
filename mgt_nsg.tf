@@ -210,7 +210,7 @@ module "NSG_MGT_Admin" {
       source_address_prefix   = "*"
       destination_address_prefixes = ["10.10.49.51","10.10.49.52"]
       access                  = "Allow"
-      priority                = 190
+      priority                = 200
       direction               = "Inbound"     
     },
       {
@@ -222,9 +222,9 @@ module "NSG_MGT_Admin" {
       source_address_prefixes = ["10.10.48.14"]
       destination_address_prefix = "10.10.49.0/24"
       access                  = "Allow"
-      priority                = 190
+      priority                = 210
       direction               = "Inbound"     
-    },        
+    }, 
                                                                                                                                                                                                                                                                                                                      
   ]
 
