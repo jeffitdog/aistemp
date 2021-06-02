@@ -130,7 +130,7 @@ module "NSG_MGT_Admin" {
       source_port_range       = "*"
       destination_port_range  = "49152-49158,53,80,88,135,55577,139,445,464,593,636,3268,3269,3389,5985,9389,10000,32388,33875,55054,47001,49198,49199,49230,49232,51417"
       source_address_prefixes = concat(var.amf_office_ip_address,var.ais_office_ip_address,var.windows_ip_address)
-      destination_address_prefix = var.windows_ad_ip_address
+      destination_address_prefixes = var.windows_ad_ip_address
       access                  = "Allow"
       priority                = 140
       direction               = "Inbound"     
@@ -142,7 +142,7 @@ module "NSG_MGT_Admin" {
       source_port_range       = "*"
       destination_port_range  = "53,123,137,138,161,389,464,500,3389,4500,5355"
       source_address_prefixes = concat(var.amf_office_ip_address,var.ais_office_ip_address,var.windows_ip_address)
-      destination_address_prefix = var.windows_ad_ip_address
+      destination_address_prefixes = var.windows_ad_ip_address
       access                  = "Allow"
       priority                = 150
       direction               = "Inbound"     
@@ -208,7 +208,7 @@ module "NSG_MGT_Admin" {
       source_port_range       = "*"
       destination_port_range  = "443,80"
       source_address_prefix   = "*"
-      destination_address_prefix = ["10.10.49.51","10.10.49.52"]
+      destination_address_prefixes = ["10.10.49.51","10.10.49.52"]
       access                  = "Allow"
       priority                = 190
       direction               = "Inbound"     
