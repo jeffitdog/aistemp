@@ -1,3 +1,4 @@
+#關於參數的解釋請參閱mgt_nsg.tf 
 module "NSG_Transit_Proxy" {
   source                = "./module/terraform-azurerm-network-security-group"
   resource_group_name   = azurerm_resource_group.rg_transit.name

@@ -1,22 +1,23 @@
+#每一個module代表一個NSG，每個NSG內配有進出規則
 module "NSG_MGT_Security" {
   source                = "./module/terraform-azurerm-network-security-group"
-  resource_group_name   = azurerm_resource_group.rg_mgt.name
-  location              = "southeastasia" #  change to chinaeast2
-  security_group_name   = var.mgt_nsg_name[0]
-  source_address_prefix = ["10.10.48.0/24"]
+  resource_group_name   = azurerm_resource_group.rg_mgt.name                      #所屬資源組
+  location              = "southeastasia" #  change to chinaeast2                 #所屬地區
+  security_group_name   = var.mgt_nsg_name[0]                                     #NSG名字
+  source_address_prefix = ["10.10.48.0/24"]                                       #關聯的subnet
   custom_rules = [
     
     {
-      name                   = "15-1-1"
-      priority               = 110
-      direction              = "Inbound"    
-      access                 = "Allow"
-      protocol               = "tcp"
-      source_port_range      = "*"
-      destination_port_range = "3389"
-      source_address_prefixes  = ["10.10.17.201","10.10.17.202","10.10.17.203","10.10.17.204","10.10.17.205","10.10.17.206","10.10.17.207","10.10.17.208"]
-      destination_address_prefix = "10.10.48.0/24"
-      description            = "堡垒机"
+      name                   = "15-1-1"                                           #規則名字
+      priority               = 110                                                #規則順序
+      direction              = "Inbound"                                          #數據方向
+      access                 = "Allow"                                            #Allow or Disallow
+      protocol               = "tcp"                                              #TCP or UDP
+      source_port_range      = "*"                                                #端口來源
+      destination_port_range = "3389"                                             #訪問端口
+      source_address_prefixes  = ["10.10.17.201","10.10.17.202","10.10.17.203","10.10.17.204","10.10.17.205","10.10.17.206","10.10.17.207","10.10.17.208"]      #允許訪問來源地址
+      destination_address_prefix = "10.10.48.0/24"                                #允許訪問地址
+      description            = "堡垒机"                                            #規則介紹
     },
 
    
@@ -27,9 +28,7 @@ module "NSG_MGT_Security" {
       access                  = "Allow"
       protocol                = "tcp"
       source_port_range       = "*"
-      #destination_port_range  = ["22,25,199,8080,8443"]
       destination_port_range  = "80,8080,443"
-      #source_address_prefixes = ["172.29.1.0/24","172.29.10.0/24","172.30.30.0/24","192.168.91.0/24","192.168.104.0/24","192.168.107.0/24","192.168.108.0/24","192.168.109.0/24","192.168.110.0/24","172.30.0.0/21","192.168.123.0/24"]             #IP address range of AIS office AND Windows IP
       source_address_prefixes = concat(var.ais_office_ip_address,var.windows_ip_address)
       destination_address_prefix = "10.10.48.233"
       description             = "杀毒软件服务器预留"
@@ -43,7 +42,7 @@ module "NSG_MGT_Security" {
       protocol                = "tcp"
       source_port_range       = "*"
       destination_port_range  = "135,139,445,3389"
-      source_address_prefixes = var.ais_office_ip_address             #IP address range of AIS office
+      source_address_prefixes = var.ais_office_ip_address             
       destination_address_prefix = "10.10.48.2"
       description             = "访问IPGUARD"
     },
@@ -55,7 +54,8 @@ module "NSG_MGT_Security" {
       protocol                = "tcp"
       source_port_range       = "*"
       destination_port_range  = "80,443,2196,2195"
-      source_address_prefixes = ["172.29.1.0/24","172.29.10.0/24","172.30.30.0/24","192.168.91.0/24","192.168.104.0/24","192.168.107.0/24","192.168.108.0/24","192.168.109.0/24","192.168.110.0/24","172.30.0.0/21","192.168.123.0/24"]             #IP address range of AIS office
+      source_address_prefixes = var.ais_office_ip_address          
+      #source_address_prefixes = ["172.29.1.0/24","172.29.10.0/24","172.30.30.0/24","192.168.91.0/24","192.168.104.0/24","192.168.107.0/24","192.168.108.0/24","192.168.109.0/24","192.168.110.0/24","172.30.0.0/21","192.168.123.0/24"]             #IP address range of AIS office
       destination_address_prefix = "10.10.48.1"
       description             = "访问AIRWATCH"
     },
