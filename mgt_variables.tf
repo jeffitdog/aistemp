@@ -16,7 +16,7 @@ variable "mgt_subnet_name" {
 
 variable "mgt_nsg_name" {
   type    = any
-  default = ["NSG-SNT-Management-Security-48","NSG-SNT-Management-Admin-49", "NSG-SNT-Management-Migratement-50"]
+  default = ["NSG-SNT-Management-Security","NSG-SNT-Management-Admin", "NSG-SNT-Management-Migratement"]
 }
 
 variable "mgt_vnet_space" {

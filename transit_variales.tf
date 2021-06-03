@@ -15,7 +15,7 @@ variable "transit_subnet_name" {        #Subnet名字
 
 variable "transit_nsg_name" {           #NSG名字
   type    = any
-  default = ["NSG-Transit-Proxy-16","NSG-Transit-Bastion-17","NSG-Transit-Gateway-18","NSG-Transit-AG-DMZ-19"]
+  default = ["NSG-Transit-Proxy","NSG-Transit-Bastion","NSG-Transit-Gateway","NSG-Transit-AG-DMZ"]
 }
 
 variable "transit_vnet_space" {           #VNET網絡位置範圍
