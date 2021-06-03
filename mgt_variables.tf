@@ -1,6 +1,6 @@
 variable "mgt_rg_name" {
   type    = any
-  default = "RG-MGT-10"
+  default = "RSG-Management-10"
 }
 
 

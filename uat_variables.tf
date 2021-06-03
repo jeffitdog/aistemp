@@ -1,6 +1,6 @@
 variable "rg_name" {
   type    = any
-  default = "RG-UAT-10"
+  default = "RSG-UAT-10"
 }
 
 variable "vnet_name" {

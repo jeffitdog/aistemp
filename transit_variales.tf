@@ -1,6 +1,6 @@
 variable "transit_rg_name" {          #資源組名字
   type    = any
-  default = "RG-Transit-10"
+  default = "RSG-Transit-10"
 }
 
 variable "transit_vnet_name" {          #VNET名字
