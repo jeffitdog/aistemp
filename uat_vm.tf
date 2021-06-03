@@ -4,7 +4,7 @@ resource "azurerm_resource_group" "rg_uat" {
   location = "southeastasia"     #Change the location to chinaeast2
   
   tags     = {
-    environment = "dev"  #Update the tag
+    environment = "uat"  #Update the tag
   }
 }
 
