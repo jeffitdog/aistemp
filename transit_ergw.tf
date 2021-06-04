@@ -27,8 +27,8 @@ resource "azurerm_resource_group" "erg_rg" {
 
 resource "azurerm_public_ip" "erg_pip" {
   name                = "ERGW_GIP"
-  location            = var.region
-  resource_group_name = var.erg_rg
+  location            = azurerm_resource_group.erg_rg.location
+  resource_group_name = azurerm_resource_group.erg_rg.name
 
   allocation_method = "Dynamic"
 }
