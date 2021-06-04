@@ -5,7 +5,7 @@ module "NSG_Transit_Proxy" {
   location              = var.region  
   security_group_name   = var.transit_nsg_name[0]
   #source_address_prefix = ["10.10.16.0/24"]
-  source_address_prefix = var.transit_subnet_space[0]
+  source_address_prefix = [var.transit_subnet_space[0]]
   custom_rules = [
     
     {
@@ -72,8 +72,7 @@ module "NSG_Transit_Bastion" {
   resource_group_name   = azurerm_resource_group.rg_transit.name
   location              = var.region
   security_group_name   = var.transit_nsg_name[1]
-  #source_address_prefix = ["10.10.17.0/24"]
-  source_address_prefix = var.transit_subnet_space[1]
+  source_address_prefix = ["10.10.17.0/24"]
   custom_rules = [
     
     {
@@ -113,7 +112,7 @@ module "NSG_Transit_AG_DMZ" {
   resource_group_name   = azurerm_resource_group.rg_transit.name
   location              = var.region
   security_group_name   = var.transit_nsg_name[2]
-  source_address_prefix = var.transit_subnet_space[2]
+  source_address_prefix = [var.transit_subnet_space[2]]
   custom_rules = [
     {
       name                    = "5-1-1"
@@ -234,7 +233,7 @@ module "NSG_Transit_Operation" {
   location              = var.region
   security_group_name   = var.transit_nsg_name[3]
   #source_address_prefix = ["10.10.18.0/27"]
-  source_address_prefix = var.transit_subnet_space[3]
+  source_address_prefix = [var.transit_subnet_space[3]]
   custom_rules = [
     {
       name                    = "19-1-1"
