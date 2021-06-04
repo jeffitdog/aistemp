@@ -36,7 +36,7 @@ resource "azurerm_public_ip" "erg_pip" {
 resource "azurerm_virtual_network_gateway" "example" {
   name                = "ERGW"
   location            = var.region 
-  resource_group_name = var.erg_rg
+  resource_group_name = var.rg_transit
 
   type     = "ExpressRoute"
   vpn_type = "PolicyBased"
