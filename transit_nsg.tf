@@ -2,9 +2,10 @@
 module "NSG_Transit_Proxy" {
   source                = "./module/terraform-azurerm-network-security-group"
   resource_group_name   = azurerm_resource_group.rg_transit.name
-  location              = "southeastasia" #  change to chinaeast2
+  location              = var.region  
   security_group_name   = var.transit_nsg_name[0]
-  source_address_prefix = ["10.10.16.0/24"]
+  #source_address_prefix = ["10.10.16.0/24"]
+  source_address_prefix = var.transit_subnet_space[0]
   custom_rules = [
     
     {
@@ -69,9 +70,10 @@ module "NSG_Transit_Proxy" {
 module "NSG_Transit_Bastion" {
   source                = "./module/terraform-azurerm-network-security-group"
   resource_group_name   = azurerm_resource_group.rg_transit.name
-  location              = "southeastasia" #  change to chinaeast2
+  location              = var.region
   security_group_name   = var.transit_nsg_name[1]
-  source_address_prefix = ["10.10.17.0/24"]
+  #source_address_prefix = ["10.10.17.0/24"]
+  source_address_prefix = var.transit_subnet_space[1]
   custom_rules = [
     
     {
@@ -106,27 +108,207 @@ module "NSG_Transit_Bastion" {
 }
 
 
-
-module "NSG_Transit_Gateway" {
+module "NSG_Transit_AG_DMZ" {
   source                = "./module/terraform-azurerm-network-security-group"
   resource_group_name   = azurerm_resource_group.rg_transit.name
-  location              = "southeastasia" #  change to chinaeast2
+  location              = var.region
   security_group_name   = var.transit_nsg_name[2]
-  source_address_prefix = ["10.10.18.0/27"] 
+  source_address_prefix = var.transit_subnet_space[2]
   custom_rules = [
     {
-      name                    = "18-1-1"
-      description             = "ER与VNP网关"
+      name                    = "5-1-1"
+      description             = "DMZ区域访问"
       protocol                = "tcp"
       source_port_range       = "*"
-      destination_port_range  = "*"
+      destination_port_range  = "*"                 #To be Confirmed 
+      source_address_prefix   = "10.10.33.122"
+      destination_address_prefix = "10.10.19.0/24"
+      access                  = "Allow"
+      priority                = 110
+      direction               = "Inbound"     
+    },
+    {
+      name                    = "5-2-1"
+      description             = "DMZ区域访问"
+      protocol                = "tcp"
+      source_port_range       = "*"
+      destination_port_range  = "*"                   #To be Confirmed 
       source_address_prefix   = "*"
+      destination_address_prefix = "10.10.33.21"
+      access                  = "Allow"
+      priority                = 120
+      direction               = "Inbound"     
+    },
+    {
+      name                    = "5-2-2"
+      description             = "DMZ区域访问"
+      protocol                = "tcp"
+      source_port_range       = "*"
+      destination_port_range  = "*"                   #To be Confirmed 
+      source_address_prefix   = "10.10.33.22"
+      destination_address_prefix = "10.10.19.0/24"
+      access                  = "Allow"
+      priority                = 130
+      direction               = "Inbound"     
+    },
+    {
+      name                    = "5-3-1"
+      description             = "DMZ区域访问"
+      protocol                = "tcp"
+      source_port_range       = "*"
+      destination_port_range  = "*"                   #To be Confirmed 
+      source_address_prefix   = "10.10.64.22"
+      destination_address_prefix = "10.10.19.0/24"
+      access                  = "Allow"
+      priority                = 140
+      direction               = "Inbound"     
+    }, 
+    {
+      name                    = "5-3-2"
+      description             = "DMZ区域访问"
+      protocol                = "tcp"
+      source_port_range       = "*"
+      destination_port_range  = "*"                   #To be Confirmed 
+      source_address_prefix   = "10.10.64.122"
+      destination_address_prefix = "10.10.19.0/24"
+      access                  = "Allow"
+      priority                = 150
+      direction               = "Inbound"     
+    },
+    {
+      name                    = "5-4-1"
+      description             = "DMZ区域访问"
+      protocol                = "tcp"
+      source_port_range       = "*"
+      destination_port_range  = "*"                   #To be Confirmed 
+      source_address_prefix   = "10.10.34.81"
+      destination_address_prefix = "10.10.19.0/24"
+      access                  = "Allow"
+      priority                = 160
+      direction               = "Inbound"     
+    },
+    {
+      name                    = "5-5-1"
+      description             = "外部接入"
+      protocol                = "tcp"
+      source_port_range       = "*"
+      destination_port_range  = "*"                      #To be Confirmed 
+      source_address_prefix   = "*"
+      destination_address_prefix = "10.10.19.0/24"
+      access                  = "Allow"
+      priority                = 170
+      direction               = "Inbound"     
+    },
+    {
+      name                    = "5-6-1"
+      description             = "Ansible"
+      protocol                = "tcp"
+      source_port_range       = "*"
+      destination_port_range  = "22,5985,5986"
+      source_address_prefix   = "10.10.50.1"
+      destination_address_prefix = "10.10.19.0/24"
+      access                  = "Allow"
+      priority                = 180
+      direction               = "Inbound"     
+    },
+    {
+      name                    = "5-7-1"
+      description             = "监视业务"
+      protocol                = "udp"
+      source_port_range       = "*"
+      destination_port_range  = "161"
+      source_address_prefix   = "10.10.48.14"
+      destination_address_prefix = "10.10.19.0/24"
+      access                  = "Allow"
+      priority                = 190
+      direction               = "Inbound"     
+    },                                                                                                                                                                                                                                                                                                                                                                           
+  ]
+
+  depends_on = [azurerm_resource_group.rg_transit]
+}
+
+module "NSG_Transit_Operation" {
+  source                = "./module/terraform-azurerm-network-security-group"
+  resource_group_name   = azurerm_resource_group.rg_transit.name
+  location              = var.region
+  security_group_name   = var.transit_nsg_name[3]
+  #source_address_prefix = ["10.10.18.0/27"]
+  source_address_prefix = var.transit_subnet_space[3]
+  custom_rules = [
+    {
+      name                    = "19-1-1"
+      description             = "堡垒机"
+      protocol                = "tcp"
+      source_port_range       = "*"
+      destination_port_range  = "3389"
+      source_address_prefix   = "10.10.17.201"
       destination_address_prefix = "10.10.18.0/24"
       access                  = "Allow"
       priority                = 110
       direction               = "Inbound"     
     },
-                                                                                                                                                                                                                                                                                                                        
+    {
+      name                    = "19-2-1"
+      description             = "AD相关服务"
+      protocol                = "tcp"
+      source_port_range       = "*"
+      destination_port_range  = "49152-49158,53,80,88,135,55577,139,445,464,593,636,3268,3269,3389,5985,9389,10000,32388,33875,55054,47001,49198,49199,49230,49232,51417"
+      source_address_prefixes = concat(var.amf_office_ip_address,var.ais_office_ip_address,var.windows_ip_address)
+      destination_address_prefixes = var.windows_ad_ip_address
+      access                  = "Allow"
+      priority                = 120
+      direction               = "Inbound"     
+    },
+      {
+      name                    = "19-3-1"
+      description             = "AD相关服务"
+      protocol                = "udp"
+      source_port_range       = "*"
+      destination_port_range  = "53,123,137,138,161,389,464,500,3389,4500,5355"
+      source_address_prefixes = concat(var.amf_office_ip_address,var.ais_office_ip_address,var.windows_ip_address)
+      destination_address_prefixes = var.windows_ad_ip_address
+      access                  = "Allow"
+      priority                = 130
+      direction               = "Inbound"     
+    },
+    {
+      name                    = "19-4-1"
+      description             = "趋势服务器"
+      protocol                = "tcp"
+      source_port_range       = "*"
+      destination_port_range  = "*"                      #To be confirmed
+      source_address_prefix   = "10.10.48.233"
+      destination_address_prefix = "10.10.18.0/24"
+      access                  = "Allow"
+      priority                = 140
+      direction               = "Inbound"     
+    },
+    {
+      name                    = "19-5-1"
+      description             = "监视业务"
+      protocol                = "udp"
+      source_port_range       = "*"
+      destination_port_range  = "161"
+      source_address_prefix   = "10.10.48.14"
+      destination_address_prefix = "10.10.18.0/24"
+      access                  = "Allow"
+      priority                = 150
+      direction               = "Inbound"     
+    },
+    {
+      name                    = "19-6-1"
+      description             = "Ansible"
+      protocol                = "tcp"
+      source_port_range       = "*"
+      destination_port_range  = "22,5985,5986"
+      source_address_prefix   = "10.10.50.1"
+      destination_address_prefix = "10.10.18.0/24"
+      access                  = "Allow"
+      priority                = 160
+      direction               = "Inbound"     
+    },
+                                                                                                                                                                                                                                                                                                                                                                                        
   ]
 
   depends_on = [azurerm_resource_group.rg_transit]
@@ -145,7 +327,12 @@ resource "azurerm_subnet_network_security_group_association" "asso_transit_basti
   network_security_group_id = module.NSG_Transit_Bastion.network_security_group_id
 }
 
-resource "azurerm_subnet_network_security_group_association" "asso_transit_gateway" {
+resource "azurerm_subnet_network_security_group_association" "asso_transit_ag_dmz" {
   subnet_id                 = module.vnet_transit.vnet_subnets[2]
-  network_security_group_id = module.NSG_Transit_Gateway.network_security_group_id
+  network_security_group_id = module.NSG_Transit_AG_DMZ.network_security_group_id
+}
+
+resource "azurerm_subnet_network_security_group_association" "asso_transit_operation" {
+  subnet_id                 = module.vnet_transit.vnet_subnets[3]
+  network_security_group_id = module.NSG_Transit_Operation.network_security_group_id
 }

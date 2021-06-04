@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "rg_mgt" {
   name     = var.mgt_rg_name      #所屬資源組
-  location = "southeastasia"      #所屬地區                #Change the location to chinaeast2
+  location = var.region            #所屬地區                
   
   tags     = {
     environment = "dev"  #Update the tag

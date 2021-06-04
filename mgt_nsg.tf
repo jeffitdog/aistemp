@@ -2,7 +2,7 @@
 module "NSG_MGT_Security" {
   source                = "./module/terraform-azurerm-network-security-group"
   resource_group_name   = azurerm_resource_group.rg_mgt.name                      #所屬資源組
-  location              = "southeastasia" #  change to chinaeast2                 #所屬地區
+  location              = var.region                                              #所屬地區
   security_group_name   = var.mgt_nsg_name[0]                                     #NSG名字
   source_address_prefix = ["10.10.48.0/24"]                                       #關聯的subnet
   custom_rules = [

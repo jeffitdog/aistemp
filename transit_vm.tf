@@ -1,7 +1,7 @@
 #關於VM參數的解釋，請參閱mgt_vm.tf
 resource "azurerm_resource_group" "rg_transit" {
   name     = var.transit_rg_name
-  location = "southeastasia"     #Change the location to chinaeast2
+  location = var.region  
   
   tags     = {
     environment = "dev"  #Update the tag

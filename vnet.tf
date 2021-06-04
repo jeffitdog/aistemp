@@ -38,8 +38,8 @@ module "vnet_transit" {
   source              = "./module/terraform-azurerm-network"
   resource_group_name = azurerm_resource_group.rg_transit.name
   address_spaces      = var.transit_vnet_space
-  subnet_prefixes     = [var.transit_subnet_space[0], var.transit_subnet_space[1],var.transit_subnet_space[2], var.transit_subnet_space[3]]
-  subnet_names        = [var.transit_subnet_name[0], var.transit_subnet_name[1],var.transit_subnet_name[2], var.transit_subnet_name[3]]
+  subnet_prefixes     = [var.transit_subnet_space[0], var.transit_subnet_space[1],var.transit_subnet_space[2], var.transit_subnet_space[3],var.transit_subnet_space[4]]
+  subnet_names        = [var.transit_subnet_name[0], var.transit_subnet_name[1],var.transit_subnet_name[2], var.transit_subnet_name[3],var.transit_subnet_name[4]]
   vnet_name           = var.transit_vnet_name
   tags = {
     env = "transit"
