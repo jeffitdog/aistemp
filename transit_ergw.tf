@@ -18,6 +18,13 @@ resource "azurerm_subnet" "example" {
   address_prefixes     = ["192.0.1.0/27"]
 }
 */
+
+
+resource "azurerm_resource_group" "erg_rg" {
+  name     = var.erg_rg
+  location = var.region
+}
+
 resource "azurerm_public_ip" "erg_pip" {
   name                = "ERGW_GIP"
   location            = var.region
