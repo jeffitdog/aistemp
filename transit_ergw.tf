@@ -31,7 +31,7 @@ resource "azurerm_virtual_network_gateway" "example" {
   resource_group_name = azurerm_resource_group.example.name
 
   type     = "ExpressRoute"
-  #vpn_type = "RouteBased"
+  vpn_type = "PolicyBased"
 
   active_active = false
   enable_bgp    = false
