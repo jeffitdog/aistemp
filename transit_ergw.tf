@@ -34,12 +34,12 @@ resource "azurerm_virtual_network_gateway" "VPNGateway" {
 
 
 
-resource "azurerm_express_route_circuit" "example" {
-  name                  = "expressRoute1"
+resource "azurerm_express_route_circuit" "erc" {
+  name                  = "AISExpressRouteCircuit_50M"
   resource_group_name   = azurerm_resource_group.erg_rg.name
   location              = azurerm_resource_group.erg_rg.location
-  service_provider_name = "Equinix"
-  peering_location      = "Silicon Valley"
+  service_provider_name = "Shanghai Telecom Ethernet"
+  peering_location      = "Shanghai2"
   bandwidth_in_mbps     = 50
 
   sku {
@@ -52,18 +52,24 @@ resource "azurerm_express_route_circuit" "example" {
   }
 }
 
+resource "azurerm_local_network_gateway" "lng" {
+  name                = "SZIDC_IPSecVPN"
+  resource_group_name = azurerm_resource_group.erg_rg.name
+  location            = azurerm_resource_group.erg_rg.location
+  gateway_address     = "221.12.7.205"
+  address_space       = ["192.168.0.0/24"]
+}
 
-/*
-resource "azurerm_virtual_network_gateway_connection" "expressroutecircuit" {
+
+
+resource "azurerm_virtual_network_gateway_connection" "erc_connection" {
   name                = "expressroutecircuit"
   location            = azurerm_resource_group.erg_rg.location
   resource_group_name = azurerm_resource_group.erg_rg.name
 
   type                       = "ExpressRoute"
   virtual_network_gateway_id = azurerm_virtual_network_gateway.VPNGateway.id
-  express_route_circuit_id   = azurerm_local_network_gateway.onpremise.id
+  express_route_circuit_id   = azurerm_express_route_circuit.erc.id
 
   #shared_key = "4-v3ry-53cr37-1p53c-5h4r3d-k3y"
 }
-
-*/

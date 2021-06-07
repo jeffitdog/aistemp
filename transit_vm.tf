@@ -46,7 +46,7 @@ module "transit_proddb" {
   vnet_subnet_id  = module.vnet_transit.vnet_subnets[3]
   #remote_port     = "22"
  #ssh_key         = "./id_rsa.pub"
-  vm_hostname = ["W-T-PDB2U-SV-1"]
+  vm_hostname = ["W-T-PDB2U-SV-1"] 
   #vm_hostname = "my-vm"
   nb_instances    = 1
   nb_public_ip    = 0
@@ -56,7 +56,7 @@ module "transit_proddb" {
   vm_os_version   = "latest"
   vm_size         = ["Standard_F2s_v2"]
   storage_account_type    = "Standard_LRS"
-  private_ip_address      = ["10.10.17.201","10.10.65.101","10.10.65.104","10.10.65.111"]
+  private_ip_address      = ["10.10.20.1"]
   #source_address_prefixes   = ["13.67.111.51"]
 
 

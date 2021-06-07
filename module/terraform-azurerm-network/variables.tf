@@ -37,7 +37,7 @@ variable "subnet_prefixes" {
 variable "subnet_names" {
   description = "A list of public subnets inside the vNet."
   type        = list(string)
-  default     = ["subnet1"]
+  default     = ["SNT-Management-Migratement-50"]
 }
 
 variable "tags" {
@@ -52,5 +52,6 @@ variable "tags" {
 variable "subnet_enforce_private_link_endpoint_network_policies" {
   description = "A map with key (string) `subnet name`, value (bool) `true` or `false` to indicate enable or disable network policies for the private link endpoint on the subnet. Default value is false."
   type        = map(bool)
-  default     = {}
+  default     = {SNT-Management-Migratement-50 = "true"}
+  #default     = {}
 }

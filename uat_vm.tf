@@ -37,6 +37,7 @@ module "UAT_internal" {
   depends_on = [azurerm_resource_group.rg_uat]
 }
 
+*/
 module "UAT_DMZ" {
   source = "./module/terraform-azurerm-compute"
   #source              = "Azure/compute/azurerm"
@@ -62,4 +63,3 @@ module "UAT_DMZ" {
 
   depends_on = [azurerm_resource_group.rg_uat]
 }
-*/
