@@ -56,7 +56,7 @@ stages:
         inputs:
           command: 'apply'
           environmentServiceName: 'aeon-iac-poc'
-          commandOptions: '-var tf_test=$(admin_password)'
+          commandOptions: '-var tf_test="$(admin_password)"'
           allowTelemetryCollection: true
       
  
