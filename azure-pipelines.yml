@@ -57,5 +57,5 @@ stages:
           command: 'apply'
           environmentServiceName: 'aeon-iac-poc'
           allowTelemetryCollection: true
-          commandOptions: -input=false -var "tf_test=password12334465656545467"
+      
           
