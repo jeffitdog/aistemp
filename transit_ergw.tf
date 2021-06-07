@@ -1,4 +1,5 @@
 
+/*
 resource "azurerm_resource_group" "erg_rg" {                   #建立屬於ExpressRoute的資源組
   name     = var.erg_rg
   location = var.region
@@ -73,3 +74,5 @@ resource "azurerm_virtual_network_gateway_connection" "erc_connection" {
 
   #shared_key = "4-v3ry-53cr37-1p53c-5h4r3d-k3y"
 }
+
+*/
