@@ -7,9 +7,9 @@ resource "azurerm_resource_group" "rg_transit" {
     environment = "dev"  #Update the tag
   }
 }
-
-#Restore back later
 /*
+#Restore back later
+
 module "transit_bastion" {
   source = "./module/terraform-azurerm-compute"
   #source              = "Azure/compute/azurerm"
@@ -37,6 +37,9 @@ module "transit_bastion" {
   depends_on = [azurerm_resource_group.rg_uat]
 }
 
+*/
+
+
 module "transit_proddb" {
   source = "./module/terraform-azurerm-compute"
   #source              = "Azure/compute/azurerm"
@@ -57,10 +60,13 @@ module "transit_proddb" {
   vm_size         = ["Standard_F2s_v2"]
   storage_account_type    = "Standard_LRS"
   private_ip_address      = ["10.10.20.1"]
+  tags                  ={
+    Env = "UAT"
+    Function = "NMFS"
+  }
   #source_address_prefixes   = ["13.67.111.51"]
 
 
   depends_on = [azurerm_resource_group.rg_transit]
 }
 
-*/

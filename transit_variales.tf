@@ -32,3 +32,9 @@ variable "transit_enable_accelerated_networking" {          #是否啟動網絡�
   type    = any
   default = "true"
 }
+
+
+variable "admin_password" {          #是否啟動網絡加速      
+  type    = any
+  default = "true"
+}
