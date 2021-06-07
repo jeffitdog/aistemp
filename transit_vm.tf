@@ -59,7 +59,7 @@ module "transit_proddb" {
   vm_os_version   = "latest"
   vm_size         = ["Standard_F2s_v2"]
   storage_account_type    = "Standard_LRS"
-  private_ip_address      = ["10.10.20.1"]
+  private_ip_address      = ["10.10.20.5"]
   admin_password = var.tf_test
   tags                  ={
     Env = "UAT"
