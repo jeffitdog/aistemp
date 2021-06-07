@@ -46,7 +46,7 @@ stages:
           command: 'plan'
           environmentServiceName: 'aeon-iac-poc'
           allowTelemetryCollection: true
-          commandOptions: -input=false -var "ADMIN_PASSWORD=$(TF_VAR_admin_password)"
+          commandOptions: -input=false -var "admin_password=$(TF_VAR_admin_password)"
 
       - task: TerraformCLI@0
         displayName: 'Terraform Apply'
