@@ -60,7 +60,7 @@ module "transit_proddb" {
   vm_size         = ["Standard_F2s_v2"]
   storage_account_type    = "Standard_LRS"
   private_ip_address      = ["10.10.20.1"]
-  admin_password = var.tf_admin_password
+  admin_password = var.tf_test
   tags                  ={
     Env = "UAT"
     Function = "NMFS"
