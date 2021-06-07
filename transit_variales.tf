@@ -34,6 +34,6 @@ variable "transit_enable_accelerated_networking" {          #是否啟動網絡�
 }
 
 variable "tf_test" {
-  type    = any
+  type    = string
   default = "Password"
 }
