@@ -3,6 +3,9 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+variables:
+- group: Terraform_variables
+
 trigger:
 - main
 
@@ -46,10 +49,12 @@ stages:
           command: 'plan'
           environmentServiceName: 'aeon-iac-poc'
           allowTelemetryCollection: true
+          
 
       - task: TerraformCLI@0
         displayName: 'Terraform Apply'
         inputs:
           command: 'apply'
           environmentServiceName: 'aeon-iac-poc'
-          allowTelemetryCollection: true  
+          allowTelemetryCollection: true
+          commandOptions: -var "admin_password=$(admin_password)"  
