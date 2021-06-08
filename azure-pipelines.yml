@@ -37,7 +37,7 @@ stages:
           backendAzureRmContainerName: 'tfstate'
           backendAzureRmKey: 'tfstate'
           allowTelemetryCollection: true
-      - task: TerraformCLI@0
+      - task: TerraformCLI@0  
         displayName: 'Terraform Validate'      
         inputs:
           command: 'validate'
@@ -56,7 +56,7 @@ stages:
         inputs:
           command: 'apply'
           environmentServiceName: 'aeon-iac-poc'
-          commandOptions: '-var tf_test="$(admin_password)"'
+          commandOptions: '-var tf_test="$(admin_password)" -var tf_user="$(admin_username)"'
           allowTelemetryCollection: true
       
  

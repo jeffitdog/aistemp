@@ -37,3 +37,8 @@ variable "tf_test" {
   type    = string
   default = "Password"
 }
+
+variable "tf_user" {
+  type    = string
+  default = "username"
+}
