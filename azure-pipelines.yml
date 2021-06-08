@@ -48,6 +48,7 @@ stages:
         inputs:
           command: 'plan'
           environmentServiceName: 'aeon-iac-poc'
+          commandOptions: '-var tf_test="$(admin_password)" -var tf_user="$(admin_username)"'
           allowTelemetryCollection: true
           
 
