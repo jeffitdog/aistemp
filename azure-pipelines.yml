@@ -7,16 +7,16 @@ variables:
 - group: Terraform_variables
 
 trigger:
+- master
 - main
 
 pool:
-  vmImage: ubuntu-latest
-
+  GitOps
 
 stages:
-  - stage: validate
+  - stage: Terraform_Plan
     jobs:
-    - job: validate
+    - job: Terraform_Plan
       continueOnError: false
       steps:
       - task: TerraformInstaller@0
@@ -25,39 +25,70 @@ stages:
           terraformVersion: '0.13.5'
 
 
-
       - task: TerraformCLI@0
         displayName: 'Terraform init'
         inputs:
           command: 'init'
           backendType: 'azurerm'
-          backendServiceArm: 'aeon-iac-poc'
-          backendAzureRmResourceGroupName: 'AeonPoC'
-          backendAzureRmStorageAccountName: 'aeoniactfstate'
+          backendServiceArm: 'Terraform-Azure-Devops'
+          backendAzureRmResourceGroupName: 'RSG-Management-10'
+          backendAzureRmStorageAccountName: 'saterraform'
           backendAzureRmContainerName: 'tfstate'
           backendAzureRmKey: 'tfstate'
           allowTelemetryCollection: true
-      - task: TerraformCLI@0  
-        displayName: 'Terraform Validate'      
+
+      - task: TerraformCLI@0
+        displayName: 'Terraform Validate'
         inputs:
           command: 'validate'
           allowTelemetryCollection: true
 
+ 
       - task: TerraformCLI@0
         displayName: 'Terraform Plan'
         inputs:
           command: 'plan'
-          environmentServiceName: 'aeon-iac-poc'
-          commandOptions: '-var tf_test="$(admin_password)" -var tf_user="$(admin_username)"'
+          environmentServiceName: 'Terraform-Azure-Devops'
+          commandOptions: '-var admin_password="$(admin_password)" -var admin_username="$(admin_username)"'
           allowTelemetryCollection: true
-          
 
-      - task: TerraformCLI@0
-        displayName: 'Terraform Apply'
-        inputs:
-          command: 'apply'
-          environmentServiceName: 'aeon-iac-poc'
-          commandOptions: '-var tf_test="$(admin_password)" -var tf_user="$(admin_username)"'
-          allowTelemetryCollection: true
-      
+  - stage: Approval_Change
+    dependsOn: [Terraform_Plan]
+    condition: succeeded('Terraform_Plan')
+    jobs:
+    - deployment: Approval_of_Change
+      continueOnError: false
+      environment: 'Approval-Gate'
+      timeoutInMinutes: 120
+      strategy:
+       runOnce:
+        deploy: 
+          steps:
+          - task: TerraformInstaller@0
+            displayName: 'install Terraform 0.13'
+            inputs:
+              terraformVersion: '0.13.5'
+
+
+          - task: TerraformCLI@0
+            displayName: 'Terraform init'
+            inputs:
+              command: 'init'
+              backendType: 'azurerm'
+              backendServiceArm: 'Terraform-Azure-Devops'
+              backendAzureRmResourceGroupName: 'RSG-Management-10'
+              backendAzureRmStorageAccountName: 'saterraform'
+              backendAzureRmContainerName: 'tfstate'
+              backendAzureRmKey: 'tfstate'
+              allowTelemetryCollection: true          
+
+          - task: TerraformCLI@0
+            displayName: 'Terraform Apply'
+            inputs:
+              command: 'apply'
+              environmentServiceName: 'Terraform-Azure-Devops'
+              allowTelemetryCollection: true
+              commandOptions: '-var admin_password="$(admin_password)" -var admin_username="$(admin_username)"'
+
+
  
