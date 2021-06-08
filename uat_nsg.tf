@@ -123,7 +123,7 @@ module "NSG_UAT_DMZ" {
 module "NSG_UAT_internal" {
   source                = "./module/terraform-azurerm-network-security-group"
   resource_group_name   = azurerm_resource_group.rg_uat.name
-  location              = "southeastasia" #  change to chinaeast2
+  location              = var.region  #  change to chinaeast2
   security_group_name   = var.nsg_name[1]
   source_address_prefix = ["10.0.3.0/24"]
   custom_rules = [

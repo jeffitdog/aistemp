@@ -1,3 +1,2 @@
 # aeonazureenv
-This terraform script is for aeon azure environment
-Come on!
+To be updated

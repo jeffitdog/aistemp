@@ -26,8 +26,8 @@ module "vnet_mgt" {
   subnet_names        = [var.mgt_subnet_name[0], var.mgt_subnet_name[1], var.mgt_subnet_name[2]]
   vnet_name           = var.mgt_vnet_name
   tags = {
-    Env = "Prod"
-    Function = "Network"
+    env = "mgt"
+    #costcenter  = "it"
   }
 
   depends_on = [azurerm_resource_group.rg_mgt]

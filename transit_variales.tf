@@ -32,13 +32,3 @@ variable "transit_enable_accelerated_networking" {          #是否啟動網絡�
   type    = any
   default = "true"
 }
-
-variable "tf_test" {
-  type    = string
-  default = "Password"
-}
-
-variable "tf_user" {
-  type    = string
-  default = "username"
-}

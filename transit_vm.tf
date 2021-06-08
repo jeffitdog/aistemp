@@ -7,7 +7,7 @@ resource "azurerm_resource_group" "rg_transit" {
     environment = "dev"  #Update the tag
   }
 }
-/*
+
 #Restore back later
 
 module "transit_bastion" {
@@ -30,15 +30,17 @@ module "transit_bastion" {
   vm_os_version   = "latest"
   vm_size         = ["Standard_F2s_v2"]
   storage_account_type    = "Standard_LRS"
-  private_ip_address      = ["10.10.17.201","10.10.65.101","10.10.65.104","10.10.65.111"]
+  private_ip_address      = ["10.10.17.201"]
+  admin_password = var.admin_password
+  admin_username = var.admin_username
   #source_address_prefixes   = ["13.67.111.51"]
+  tags                  ={
+    Env = "Prod"
+    Function = "Security"
+    Cost = "_$AIS_$MSZ_$MTJ"
+  }
 
-
-  depends_on = [azurerm_resource_group.rg_uat]
 }
-
-*/
-
 
 module "transit_proddb" {
   source = "./module/terraform-azurerm-compute"
@@ -49,7 +51,7 @@ module "transit_proddb" {
   vnet_subnet_id  = module.vnet_transit.vnet_subnets[3]
   #remote_port     = "22"
  #ssh_key         = "./id_rsa.pub"
-  vm_hostname = ["W-T-PDB2U-SV-1"] 
+  vm_hostname = ["W-T-PDB2U-SV-1"]
   #vm_hostname = "my-vm"
   nb_instances    = 1
   nb_public_ip    = 0
@@ -57,18 +59,20 @@ module "transit_proddb" {
   vm_os_publisher = "MicrosoftWindowsServer"
   vm_os_sku       = "2019-Datacenter"
   vm_os_version   = "latest"
-  vm_size         = ["Standard_F2s_v2"]
+  vm_size         = ["Standard_Ds2_v2"]
   storage_account_type    = "Standard_LRS"
-  private_ip_address      = ["10.10.20.5"]
-  admin_password = var.tf_test
-  admin_username = var.tf_user
-  tags                  ={
-    Env = "UAT"
-    Function = "NMFS"
-  }
+  admin_password = var.admin_password
+  admin_username = var.admin_username
+  private_ip_address      = ["10.10.20.4"]
   #source_address_prefixes   = ["13.67.111.51"]
+  tags                  ={
+    Env = "Prod"
+    Function = "Operation"
+    Cost = "_$MSZ_$MTJ"
+  }
 
 
   depends_on = [azurerm_resource_group.rg_transit]
 }
+
 
